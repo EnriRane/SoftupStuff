@@ -1,0 +1,23 @@
+.tempLabel{
+    display: flex;
+    flex-direction: column;
+}
+.currentTemperature{
+    display: flex;
+    flex-direction: row ;
+    gap:30px;
+    margin-left: 30px;
+justify-content: center;
+
+
+}
+.currentTemperature img {
+    width: 50px;
+    height: auto;
+    margin-top: 5px;
+    border-radius: 20px;
+}
+.tempLabel h4{
+    display: flex;
+    justify-content: center;
+}

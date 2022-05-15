@@ -1,0 +1,22 @@
+.temperatureDescription{
+    background-color: rgb(28, 179, 206);
+    display: flex;
+    flex-wrap: nowrap;
+    margin:8px;
+border-radius: 20px;
+  
+}
+.temperatureDescription div {
+   
+    flex-direction: column;
+    justify-items: center;
+    margin: 18px;
+}
+.temperatureDescription div h4, h5 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.temperatureDescription div h4 :first-child{
+    color: aqua;
+}
