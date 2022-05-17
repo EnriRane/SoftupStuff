@@ -1,0 +1,25 @@
+.temperatureDescription {
+  grid-column: 1 / span 3;
+  background-color: rgb(100, 202, 236);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10%;
+}
+
+.temperatureDescription h3 {
+  margin: auto;
+  color: blue;
+  font-size: 1.5em;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.temperatureDescription div {
+  padding-left: 70px;
+}
+
+.temperatureDescription div img {
+  width: 70px;
+  height: auto;
+  border-radius: 20%;
+}

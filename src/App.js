@@ -1,29 +1,27 @@
-import React from 'react'
-import { useEffect, useState } from "react";
+import React from "react";
+import Header from "./Header";
 import TemperatureDescription from "./TemperatureDescription";
-import TemperatureLabel from "./TemperatureLabel";
+import TemperatureComponents from "./TemperatureComponents";
 import allWeathers from "./weather.json";
 import "./App.css";
+
 const App = () => {
-    
-    const[weatherToday,setWeather]= useState({});
-    const getRandomNumber=()=>Math.floor(Math.random()*3);
+  const randomWeather = allWeathers.weather[Math.floor(Math.random() * 3)];
 
-    useEffect(()=>{
-        const getRandomWeather=()=>{
-           const randomWeather= allWeathers.weather[getRandomNumber()];
-          return randomWeather[Object.keys(randomWeather)[0]]
-        }
-        setWeather(getRandomWeather());
-    }, [weatherToday]);
-
-
-    return (
-         <div className="wrapper">
-        <TemperatureLabel weatherToday={weatherToday}/>
-        <TemperatureDescription weatherToday={weatherToday}/>
-
-    </div>)
-}
-
+  return (
+    <div className="wrapper">
+      <Header />
+      <TemperatureDescription
+        description={randomWeather.description}
+        currentTemperature={randomWeather.currentTemperature}
+        image={randomWeather.image}
+      />
+      <TemperatureComponents
+        lowestTemperature={randomWeather.lowTemperature}
+        highestTemperature={randomWeather.highTemperature}
+        windSpeed={randomWeather.windSpeed}
+      />
+    </div>
+  );
+};
 export default App;

@@ -1,36 +1,31 @@
 {
-    "weather":[
-
-        {"sunny": {
-            "lowTemperature":27,
-            "highTemperature":"38",
-            "currentTemperature":"34",
-            "windSpeed":"22",
-            "description":"It will be very very hot today",
-            "image":"../sunny.jpeg",
-            "backgroundImage":""
-        
-        }},{"rainy":{
-            "lowTemperature":17,
-            "highTemperature":"27",
-            "currentTemperature":"22",
-            "windSpeed":"12",
-            "description":"A bit rainy today",
-            "image":"../rainy.png",
-            "backgroundImage":""
-        }},{
-            "snowy":{
-                "lowTemperature":-2,
-                "highTemperature":"4",
-                "currentTemperature":"32",
-                "windSpeed":"22",
-                "description":"Freezing...",
-                "image":"../snowy.jpeg",
-                "backgroundImage":""
-            }
-        }
-    ]
-
-
-
+  "weather": [
+    {
+      "type": "sunny",
+      "lowTemperature": 27,
+      "highTemperature": "38",
+      "currentTemperature": "34",
+      "windSpeed": "22",
+      "description": "It will be very very hot today !",
+      "image": "../sunny.jpeg"
+    },
+    {
+      "type": "rainy",
+      "lowTemperature": 17,
+      "highTemperature": "27",
+      "currentTemperature": "22",
+      "windSpeed": "12",
+      "description": "A bit rainy today !",
+      "image": "../rainy.png"
+    },
+    {
+      "type": "windy",
+      "lowTemperature": -2,
+      "highTemperature": "4",
+      "currentTemperature": "0",
+      "windSpeed": "22",
+      "description": "Freezing... !",
+      "image": "../snowy.jpeg"
+    }
+  ]
 }
