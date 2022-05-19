@@ -10,7 +10,12 @@ const TodoItem = ({ todo, onDeleteTodo }) => {
     <div className="todoItem">
       <h2 className={isDecorated ? "decoratedText" : ""}>{todo.name}</h2>
       <div>
-        <button id="textdecoration" onClick={changeDecoration}>
+        <button
+          id={
+            isDecorated ? "textdecorationButtonClicked" : "textdecorationButton"
+          }
+          onClick={changeDecoration}
+        >
           <i className="fa-solid fa-check"></i>
         </button>
         <button id="delete" onClick={() => onDeleteTodo(todo)}>

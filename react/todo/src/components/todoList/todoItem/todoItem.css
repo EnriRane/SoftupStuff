@@ -26,9 +26,19 @@
 .decoratedText {
   text-decoration: line-through;
 }
-#textdecoration {
+#textdecorationButton {
   background-color: rgb(26, 189, 26);
 }
+#textdecorationButton:hover {
+  background-color: rgb(12, 93, 12);
+}
+#textdecorationButtonClicked {
+  background-color: rgb(17, 72, 17);
+}
+
 #delete {
   background-color: red;
+}
+#delete:hover {
+  background-color: rgb(154, 7, 7);
 }

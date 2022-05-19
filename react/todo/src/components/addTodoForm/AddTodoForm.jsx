@@ -17,6 +17,10 @@ const TodoForm = ({ setTodos }) => {
 
   const addNewTodo = (event) => {
     event.preventDefault();
+    if (newTodo.name.length === 0) {
+      setError("Todo name cannot be an empty string");
+      return;
+    }
     setTodos((prevState) => {
       return [...prevState, newTodo];
     });
