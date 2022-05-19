@@ -1,0 +1,37 @@
+.todoForm {
+  margin: 10px 90px;
+  padding: 35px;
+}
+.todoForm label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-weight: bold;
+}
+.todoForm input {
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 14px;
+}
+
+.todoForm button {
+  border: none;
+  padding: 10px 12px;
+  background-color: #00aaee;
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+}
+.todoForm button:hover {
+  cursor: pointer;
+  background-color: #3b43d6;
+}
+.todoForm p {
+  background-color: red;
+  padding: 6px;
+  border-radius: 6px;
+  color: white;
+}
