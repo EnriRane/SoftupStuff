@@ -1,0 +1,27 @@
+body {
+  background-image: url("../../softupKitchen.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 1230px;
+}
+.dashboard {
+  padding: 20px;
+}
+.dashboard h2 {
+  line-height: 70px;
+  text-align: center;
+  font-size: 7.3em;
+  color: white;
+  position: relative;
+  animation-name: showTitle;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+@keyframes showTitle {
+  from {
+    top: -100px;
+  }
+  to {
+    top: 250px;
+  }
+}

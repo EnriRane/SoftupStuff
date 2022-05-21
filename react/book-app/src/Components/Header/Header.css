@@ -1,0 +1,60 @@
+.header {
+  background-color: rgb(221, 221, 20);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 130px;
+  border-radius: 15px;
+}
+.header div {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+}
+#searchByCategory {
+  border: none;
+  background-color: rgb(221, 221, 20);
+  color: gray;
+  border-bottom: 1px solid blue;
+  width: 250px;
+  outline: none;
+  font-size: 1.4em;
+}
+
+img {
+  border-radius: 20px;
+  width: 90px;
+  height: auto;
+}
+.searchBar button {
+  border: none;
+  background-color: rgb(221, 221, 20);
+  border-bottom: 1px solid blue;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+.title {
+  gap: 15px;
+}
+.title h1 {
+  font-size: 2.2em;
+}
+.favoritesAndBucket {
+  font-size: 1.5em;
+}
+.favoritesAndBucket div {
+  margin-right: 20px;
+}
+.favoritesAndBucket div i {
+  margin: auto 10px;
+}
+.favorites {
+  display: flex;
+  align-content: flex-end;
+}
+
+.favorites:hover,
+.bucket:hover {
+  color: red;
+  cursor: pointer;
+}
