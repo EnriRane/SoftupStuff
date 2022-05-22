@@ -31,6 +31,12 @@ function App() {
       setAreFavBooksShown(true);
     }
   };
+  const handleBookCategoryFilter = (category) => {
+    dispatchBooks({ type: "filterBooks", payload: category });
+  };
+  const handleSearchBookByTitle = (title) => {
+    dispatchBooks({ type: "searchByTitle", payload: title });
+  };
   console.log(books);
   return (
     <React.Fragment>
@@ -42,10 +48,13 @@ function App() {
       )}
 
       <div className="app">
-        <Header onhandleFavBooksAppearance={handleFavBooksAppearance} />
+        <Header
+          onhandleFavBooksAppearance={handleFavBooksAppearance}
+          onHandleSearchBookByTitle={handleSearchBookByTitle}
+        />
         <Dashboard />
         <BookContext.Provider value={[books, handleLike]}>
-          <BookSection />
+          <BookSection onHandleBookCategoryFilter={handleBookCategoryFilter} />
         </BookContext.Provider>
       </div>
     </React.Fragment>

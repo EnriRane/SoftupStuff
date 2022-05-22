@@ -4,14 +4,18 @@ import BookContext from "../../../context/BookContext";
 import "./BookList.css";
 const BookList = () => {
   const [books, handleLike] = useContext(BookContext);
-
+  console.log(books);
   return (
     <div className="bookList">
-      <ul>
-        {books.map((book) => (
-          <Book key={Math.random()} book={book} onLike={handleLike} />
-        ))}
-      </ul>
+      {books[0] === undefined ? (
+        <h1>No books found</h1>
+      ) : (
+        <ul>
+          {books.map((book) => (
+            <Book key={Math.random()} book={book} onLike={handleLike} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

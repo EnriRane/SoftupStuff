@@ -1,6 +1,11 @@
+import { useState } from "react";
 import "./Header.css";
 import softupLogo from "./softupLogo.png";
-const Header = ({ onhandleFavBooksAppearance }) => {
+const Header = ({ onhandleFavBooksAppearance, onHandleSearchBookByTitle }) => {
+  const [userSearchInput, setUserSearchInput] = useState("");
+  const handleUserInput = (event) => {
+    setUserSearchInput(event.target.value);
+  };
   return (
     <header className="header">
       <div className="searchBar">
@@ -8,8 +13,10 @@ const Header = ({ onhandleFavBooksAppearance }) => {
           type="text"
           id="searchByCategory"
           placeholder="Find book by title..."
+          value={userSearchInput}
+          onChange={handleUserInput}
         />
-        <button type="submit">
+        <button onClick={() => onHandleSearchBookByTitle(userSearchInput)}>
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
