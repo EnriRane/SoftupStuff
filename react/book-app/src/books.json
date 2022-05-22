@@ -1,0 +1,112 @@
+{
+  "books": [
+    {
+      "title": "NE QYTETIN E ENDERRAVE DHE HIJEVE",
+      "author": "Murat Gylsoj",
+      "price": 1000,
+      "quantity": 5,
+      "image": "./static/images/NE QYTETIN E ENDERRAVE DHE HIJEVE.png",
+      "category": "albanian",
+      "liked": false
+    },
+    {
+      "title": "E VETMJA HISTORI",
+      "author": "Julian Barnes",
+      "price": 1200,
+      "quantity": 6,
+      "image": "./static/images/E VETMJA HISTORI.png",
+      "category": "albanian",
+      "liked": false
+    },
+    {
+      "title": "BARNATORJA E HUMBUR",
+      "author": "Sarah Penner",
+      "price": 1250,
+      "quantity": 7,
+      "image": "./static/images/BARNATORJA E HUMBUR.png",
+      "category": "albanian",
+      "liked": false
+    },
+    {
+      "title": "NJE SEPATE NE DUART E TUA",
+      "author": "Emiliuos Solomou",
+      "price": 800,
+      "quantity": 9,
+      "image": "./static/images/NJE SEPATE NE DUART E TUA.png",
+      "category": "albanian",
+      "liked": false
+    },
+    {
+      "title": "VERITI",
+      "author": "Colleen Hoover",
+      "price": 1000,
+      "quantity": 1,
+      "image": "./static/images/VERITI.png",
+      "category": "albanian",
+      "liked": false
+    },
+    {
+      "title": "SHTATE BASHKESHORTET E EVELIN GYLOSE",
+      "author": "Taylor Jenkins Reid",
+      "price": 1200,
+      "quantity": 6,
+      "image": "./static/images/SHTATE BASHKESHORTET E EVELIN GYLOSE.png",
+      "category": "albanian",
+      "liked": false
+    },
+    {
+      "title": "HOUSE OF SKY AND BREATH",
+      "author": "Sarah Mahs",
+      "price": 2490,
+      "quantity": 2,
+      "image": "./static/images/HOUSE OF SKY AND BREATH.PNG",
+      "category": "foreign",
+      "liked": false
+    },
+    {
+      "title": "RED, WHITE & ROYAL BLUE",
+      "author": "Cascey McQuiston",
+      "price": 1590,
+      "quantity": 6,
+      "image": "./static/images/RED, WHITE & ROYAL BLUE.png",
+      "category": "foreign",
+      "liked": false
+    },
+    {
+      "title": "GIRL IN PIECES",
+      "author": "Kathleen Glasgow",
+      "price": 1490,
+      "quantity": 6,
+      "image": "./static/images/GIRL IN PIECES.png",
+      "category": "foreign",
+      "liked": false
+    },
+    {
+      "title": "IN  GARDEN BURNING GOLD",
+      "author": "Rory Power ",
+      "price": 2390,
+      "quantity": 4,
+      "image": "./static/images/IN  GARDEN BURNING GOLD.png",
+      "category": "foreign",
+      "liked": false
+    },
+    {
+      "title": "MY YEAR OR REST AND RELAXATION",
+      "author": "Otessa Moshfegh",
+      "price": 1490,
+      "quantity": 6,
+      "image": "./static/images/MY YEAR OR REST AND RELAXATION.png",
+      "category": "foreign",
+      "liked": false
+    },
+    {
+      "title": "THE DROWNING SUMMER",
+      "author": "Christine Herman",
+      "price": 1490,
+      "quantity": 7,
+      "image": "./static/images/THE DROWNING SUMMER.png",
+      "category": "foreign",
+      "liked": false
+    }
+  ]
+}

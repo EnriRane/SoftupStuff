@@ -19,11 +19,11 @@ const Header = () => {
       </div>
       <div className="favoritesAndBucket">
         <div className="favorites">
-          <i class="fa-solid fa-heart"></i>
+          <i className="fa-solid fa-heart"></i>
           <p>Favorites</p>
         </div>
         <div className="bucket">
-          <i class="fa-solid fa-cart-shopping"></i>
+          <i className="fa-solid fa-cart-shopping"></i>
           <p>My cart</p>
         </div>
       </div>

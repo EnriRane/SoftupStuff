@@ -1,0 +1,15 @@
+.bookSection {
+  text-align: center;
+  font-size: 1.3em;
+}
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  color: gray;
+}
+#albanian:hover,
+#foreign:hover {
+  color: black;
+  border-bottom: 4px solid red;
+}
