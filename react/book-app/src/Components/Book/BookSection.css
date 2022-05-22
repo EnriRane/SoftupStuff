@@ -12,4 +12,5 @@
 #foreign:hover {
   color: black;
   border-bottom: 4px solid red;
+  cursor: pointer;
 }

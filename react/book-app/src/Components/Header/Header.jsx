@@ -1,6 +1,6 @@
 import "./Header.css";
 import softupLogo from "./softupLogo.png";
-const Header = () => {
+const Header = ({ onhandleFavBooksAppearance }) => {
   return (
     <header className="header">
       <div className="searchBar">
@@ -17,7 +17,7 @@ const Header = () => {
         <img src={softupLogo} alt="Softup Logo" />
         <h1>Softup Library</h1>
       </div>
-      <div className="favoritesAndBucket">
+      <div className="favoritesAndBucket" onClick={onhandleFavBooksAppearance}>
         <div className="favorites">
           <i className="fa-solid fa-heart"></i>
           <p>Favorites</p>

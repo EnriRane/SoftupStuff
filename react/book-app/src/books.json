@@ -7,7 +7,7 @@
       "quantity": 5,
       "image": "./static/images/NE QYTETIN E ENDERRAVE DHE HIJEVE.png",
       "category": "albanian",
-      "liked": false
+      "liked": true
     },
     {
       "title": "E VETMJA HISTORI",
@@ -16,7 +16,7 @@
       "quantity": 6,
       "image": "./static/images/E VETMJA HISTORI.png",
       "category": "albanian",
-      "liked": false
+      "liked": true
     },
     {
       "title": "BARNATORJA E HUMBUR",
@@ -25,7 +25,7 @@
       "quantity": 7,
       "image": "./static/images/BARNATORJA E HUMBUR.png",
       "category": "albanian",
-      "liked": false
+      "liked": true
     },
     {
       "title": "NJE SEPATE NE DUART E TUA",

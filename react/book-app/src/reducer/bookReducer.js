@@ -5,15 +5,17 @@ const bookReducer = (books, { type, payload }) => {
     case "changeBookLike":
       const newBooks = [...books];
       const index = newBooks.indexOf(payload);
-      console.log(JSON.parse(localStorage.getItem("books")));
-      if (payload.liked === true) {
-        newBooks[index].liked = false;
-      } else {
-        newBooks[index].liked = true;
+      console.log("before", newBooks[index].liked);
+
+      const myBook = newBooks[index];
+      if (!newBooks[index].liked) {
+        myBook.liked = true;
       }
+
+      console.log("after", newBooks[index].liked);
       localStorage.setItem("books", JSON.stringify(newBooks));
-      console.log(JSON.parse(localStorage.getItem("books")));
-      return [...newBooks];
+
+      return newBooks;
     default:
       return [...books];
   }

@@ -1,0 +1,41 @@
+.favBooks {
+  display: flex;
+  gap: 11%;
+}
+
+.likedBooksTitle {
+  text-align: center;
+  color: red;
+}
+.likedBooks ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.likedBooks ul li {
+  margin-bottom: 20px;
+}
+.favBooks i {
+  position: absolute;
+  right: 90px;
+  font-size: 3.5em;
+}
+.likedBooks {
+  position: relative;
+}
+.likedBooks button {
+  position: absolute;
+  bottom: 0px;
+  right: 60px;
+  background-color: red;
+  font-size: 1.6em;
+  border-radius: 15px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+}
+.likedBooks button:hover {
+  background-color: brown;
+  cursor: pointer;
+  color: gray;
+}
