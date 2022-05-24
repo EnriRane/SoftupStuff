@@ -1,5 +1,5 @@
 import "./Book.css";
-const Book = ({ book, onLike }) => {
+const Book = ({ book, onLike, onAddToCart }) => {
   return (
     <div className="book">
       <img src={book.image} alt="BookImage" />
@@ -17,7 +17,8 @@ const Book = ({ book, onLike }) => {
           }
           onClick={() => onLike(book)}
         ></i>
-        <button>Add in cart</button>
+
+        <button onClick={() => onAddToCart(book)}>Add to cart</button>
       </div>
     </div>
   );

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./Header.css";
 import softupLogo from "./softupLogo.png";
-const Header = ({ onhandleFavBooksAppearance, onHandleSearchBookByTitle }) => {
+const Header = ({
+  onhandleFavBooksAppearance,
+  onHandleSearchBookByTitle,
+  onHandleBookCart,
+}) => {
   const [userSearchInput, setUserSearchInput] = useState("");
   const handleUserInput = (event) => {
     setUserSearchInput(event.target.value);
@@ -24,12 +28,12 @@ const Header = ({ onhandleFavBooksAppearance, onHandleSearchBookByTitle }) => {
         <img src={softupLogo} alt="Softup Logo" />
         <h1>Softup Library</h1>
       </div>
-      <div className="favoritesAndBucket" onClick={onhandleFavBooksAppearance}>
-        <div className="favorites">
+      <div className="favoritesAndBucket">
+        <div className="favorites" onClick={onhandleFavBooksAppearance}>
           <i className="fa-solid fa-heart"></i>
           <p>Favorites</p>
         </div>
-        <div className="bucket">
+        <div className="bucket" onClick={onHandleBookCart}>
           <i className="fa-solid fa-cart-shopping"></i>
           <p>My cart</p>
         </div>

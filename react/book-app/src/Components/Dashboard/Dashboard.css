@@ -2,6 +2,7 @@ body {
   background-image: url("../../softupKitchen.png");
   background-size: cover;
   background-repeat: no-repeat;
+  opacity: 0.9;
   height: 1240px;
 }
 .dashboard {

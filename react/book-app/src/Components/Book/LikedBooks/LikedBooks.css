@@ -20,6 +20,10 @@
   right: 90px;
   font-size: 3.5em;
 }
+.favBooks i:hover {
+  cursor: pointer;
+  color: bla;
+}
 .likedBooks {
   position: relative;
 }

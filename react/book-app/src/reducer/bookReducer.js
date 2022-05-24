@@ -3,19 +3,12 @@ const bookReducer = (books, { type, payload }) => {
     case "addAllBooks":
       return [...payload];
     case "changeBookLike":
-      const newBooks = [...books];
-      const index = newBooks.indexOf(payload);
-      console.log("before", newBooks[index].liked);
-
-      const myBook = newBooks[index];
-      if (!newBooks[index].liked) {
-        myBook.liked = true;
-      }
-
-      console.log("after", newBooks[index].liked);
-      localStorage.setItem("books", JSON.stringify(newBooks));
-
-      return newBooks;
+      return books.map((book) => {
+        if (book.title === payload.title) {
+          return { ...book, liked: !book.liked };
+        }
+        return book;
+      });
     case "filterBooks":
       if (payload === "foreign" || payload === "albanian") {
         const myBooks = JSON.parse(localStorage.getItem("books")).filter(

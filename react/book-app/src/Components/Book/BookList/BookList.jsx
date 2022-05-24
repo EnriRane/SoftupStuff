@@ -2,9 +2,11 @@ import { useContext } from "react";
 import Book from "../BookItem/Book";
 import BookContext from "../../../context/BookContext";
 import "./BookList.css";
+import CartContext from "../../../context/CartContext";
 const BookList = () => {
   const [books, handleLike] = useContext(BookContext);
-  console.log(books);
+  const handleAddToCart = useContext(CartContext)[1];
+
   return (
     <div className="bookList">
       {books[0] === undefined ? (
@@ -12,7 +14,12 @@ const BookList = () => {
       ) : (
         <ul>
           {books.map((book) => (
-            <Book key={Math.random()} book={book} onLike={handleLike} />
+            <Book
+              key={Math.random()}
+              book={book}
+              onLike={handleLike}
+              onAddToCart={handleAddToCart}
+            />
           ))}
         </ul>
       )}
