@@ -5,13 +5,14 @@ const Header = ({
   onhandleFavBooksAppearance,
   onHandleSearchBookByTitle,
   onHandleBookCart,
+  onShowNewBook,
 }) => {
   const [userSearchInput, setUserSearchInput] = useState("");
   const handleUserInput = (event) => {
     setUserSearchInput(event.target.value);
   };
   return (
-    <header className="header">
+    <header>
       <div className="searchBar">
         <input
           type="text"
@@ -25,17 +26,20 @@ const Header = ({
         </button>
       </div>
       <div className="title">
-        <img src={softupLogo} alt="Softup Logo" />
+        <img className="logoHeader" src={softupLogo} alt="Softup Logo" />
         <h1>Softup Library</h1>
       </div>
-      <div className="favoritesAndBucket">
-        <div className="favorites" onClick={onhandleFavBooksAppearance}>
-          <i className="fa-solid fa-heart"></i>
-          <p>Favorites</p>
-        </div>
-        <div className="bucket" onClick={onHandleBookCart}>
-          <i className="fa-solid fa-cart-shopping"></i>
-          <p>My cart</p>
+      <div className="rightCont">
+        <div className="favoritesAndBucket">
+          <div className="addBook" onClick={onShowNewBook}>
+            <i className="fa-solid fa-circle-plus"></i>
+          </div>
+          <div className="favorites" onClick={onhandleFavBooksAppearance}>
+            <i className="fa-solid fa-heart"></i>
+          </div>
+          <div className="bucket" onClick={onHandleBookCart}>
+            <i className="fa-solid fa-cart-shopping"></i>
+          </div>
         </div>
       </div>
     </header>

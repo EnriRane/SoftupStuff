@@ -1,11 +1,12 @@
 .bookList {
-  border: 1px solid gray;
-  margin: 0 100px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 80px auto 0;
+  gap: 12px;
 }
 .bookList ul {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  grid-template-rows: 900px 900px 900px auto;
   gap: 20px;
   padding: 10px;
   margin: 0 auto;

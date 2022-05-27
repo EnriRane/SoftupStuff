@@ -3,6 +3,9 @@ body {
   padding: 0;
 }
 .app {
-  display: grid;
-  grid-template-rows: auto 1200px auto auto;
+  position: relative;
+}
+
+img {
+  max-width: 100%;
 }

@@ -1,15 +1,47 @@
-.header {
+header {
   background-color: rgb(221, 221, 20);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 130px;
-  border-radius: 15px;
+  padding: 0 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: relative;
 }
-.header div {
-  width: 400px;
+.searchBar {
+  flex: 1;
+}
+
+.searchBar button {
+  border: none;
+  background-color: rgb(221, 221, 20);
+
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.title {
+  flex: 2;
+  gap: 15px;
+}
+
+.rightCont {
+  flex: 1;
+}
+.rightCont i {
+  font-size: 1.1em;
+}
+.favoritesAndBucket {
+  position: relative;
+  width: max-content;
+  margin-left: auto;
   display: flex;
+  align-items: center;
   justify-content: center;
+  margin-right: 5px;
 }
 #searchByCategory {
   border: none;
@@ -21,26 +53,16 @@
   font-size: 1.4em;
 }
 
-img {
+.logoHeader {
   border-radius: 20px;
   width: 90px;
   height: auto;
 }
-.searchBar button {
-  border: none;
-  background-color: rgb(221, 221, 20);
-  border-bottom: 1px solid blue;
-  cursor: pointer;
-  font-size: 1.5em;
-}
-.title {
-  gap: 15px;
-}
-.title h1 {
-  font-size: 2.2em;
-}
+
 .favoritesAndBucket {
   font-size: 1.5em;
+  gap: 40px;
+  margin-right: 2%;
 }
 .favoritesAndBucket div {
   margin-right: 20px;
@@ -54,7 +76,8 @@ img {
 }
 
 .favorites:hover,
-.bucket:hover {
+.bucket:hover,
+.addBook:hover {
   color: red;
   cursor: pointer;
 }

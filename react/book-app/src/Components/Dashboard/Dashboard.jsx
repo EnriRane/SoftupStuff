@@ -2,8 +2,8 @@ import "./Dashboard.css";
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <h2>Welcome to Softup Technologies </h2>
-      <h2>library</h2>
+      <img src="./softupKitchen.jpg" alt="SoftupKitchen"></img>
+      <h2 className="centered">Welcome to Softup Technologies library </h2>
     </div>
   );
 };

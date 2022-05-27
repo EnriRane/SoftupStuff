@@ -4,6 +4,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import BookSection from "./Components/Book/BookSection";
 import LikedBooks from "./Components/Book/LikedBooks/LikedBooks";
 import Cart from "./Components/Cart/Cart";
+import NewBook from "./Components/Book/NewBook/NewBook";
 import { bookReducer } from "./reducer/bookReducer";
 import { cartReducer } from "./reducer/cartReducer";
 import BookContext from "./context/BookContext";
@@ -16,6 +17,7 @@ function App() {
   const [bookCart, dispatchBookCart] = useReducer(cartReducer, []);
   const [areFavBooksShown, setAreFavBooksShown] = useState(false);
   const [isBookCartShown, setisBookCartShown] = useState(false);
+  const [isAddNewBookFormShown, setIsAddNewBookFormShown] = useState(false);
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(allBooks.books));
     dispatchBooks({
@@ -23,18 +25,33 @@ function App() {
       payload: JSON.parse(localStorage.getItem("books")),
     });
   }, []);
-  const handleLike = (book) => {
-    dispatchBooks({
-      type: "changeBookLike",
-      payload: book,
-    });
-  };
+
   const handleFavBooksAppearance = () => {
     if (areFavBooksShown) {
       setAreFavBooksShown(false);
     } else {
       setAreFavBooksShown(true);
     }
+  };
+  const handleBookCartAppearance = () => {
+    if (isBookCartShown) {
+      setisBookCartShown(false);
+    } else {
+      setisBookCartShown(true);
+    }
+  };
+  const handleBookFormShown = () => {
+    if (isAddNewBookFormShown) {
+      setIsAddNewBookFormShown(false);
+    } else {
+      setIsAddNewBookFormShown(true);
+    }
+  };
+  const handleLike = (book) => {
+    dispatchBooks({
+      type: "changeBookLike",
+      payload: book,
+    });
   };
   const handleBookCategoryFilter = (category) => {
     dispatchBooks({ type: "filterBooks", payload: category });
@@ -45,13 +62,6 @@ function App() {
   const handleAddToCart = (book) => {
     dispatchBookCart({ type: "addToCart", payload: book });
   };
-  const handleBookCartAppearance = () => {
-    if (isBookCartShown) {
-      setisBookCartShown(false);
-    } else {
-      setisBookCartShown(true);
-    }
-  };
   const handleIncreaseQuantity = (book) => {
     dispatchBookCart({ type: "increaseQuantityOfBook", payload: book });
   };
@@ -60,6 +70,8 @@ function App() {
   };
   return (
     <React.Fragment>
+      {isAddNewBookFormShown && <NewBook onShowNewBook={handleBookFormShown} />}
+
       {areFavBooksShown && (
         <LikedBooks
           books={books}
@@ -81,6 +93,7 @@ function App() {
           onhandleFavBooksAppearance={handleFavBooksAppearance}
           onHandleSearchBookByTitle={handleSearchBookByTitle}
           onHandleBookCart={handleBookCartAppearance}
+          onShowNewBook={handleBookFormShown}
         />
         <Dashboard />
         <CartContext.Provider value={[bookCart, handleAddToCart]}>

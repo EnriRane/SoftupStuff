@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import classes from "./Modal.module.css";
-
+import classes from "./NewBookModal.module.css";
 const BackDrop = (props) => {
   return <div className={classes.backdrop} />;
 };
@@ -13,8 +12,8 @@ const ModalOverlay = (props) => {
     </div>
   );
 };
-const portalElement = document.getElementById("likedBooks");
-const Modal = (props) => {
+const portalElement = document.getElementById("newBook");
+const NewBookModal = (props) => {
   return (
     <React.Fragment>
       {ReactDOM.createPortal(<BackDrop />, portalElement)}
@@ -25,4 +24,4 @@ const Modal = (props) => {
     </React.Fragment>
   );
 };
-export default Modal;
+export default NewBookModal;

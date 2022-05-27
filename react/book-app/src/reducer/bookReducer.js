@@ -11,10 +11,9 @@ const bookReducer = (books, { type, payload }) => {
       });
     case "filterBooks":
       if (payload === "foreign" || payload === "albanian") {
-        const myBooks = JSON.parse(localStorage.getItem("books")).filter(
+        return JSON.parse(localStorage.getItem("books")).filter(
           (b) => b.category === payload
         );
-        return myBooks;
       }
       return [...JSON.parse(localStorage.getItem("books"))];
     case "searchByTitle":

@@ -1,6 +1,14 @@
 import BookList from "./BookList/BookList";
 import "./BookSection.css";
 const BookSection = ({ onHandleBookCategoryFilter }) => {
+  // A better solution would be :
+  //- not dispatching the category but creating the event handlers in here
+  //
+  // const handleFilter = (category) => {
+  //   let filteredBooks = [...books];
+  //   if (category) {
+  //     filteredBooks = books.filter((b) => b.category === category);
+  // }
   return (
     <div>
       <div className="bookSection">
