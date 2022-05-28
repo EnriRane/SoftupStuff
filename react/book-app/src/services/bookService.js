@@ -5,7 +5,7 @@ const getBooks = async () => {
   return await http.get(config.bookAPI);
 };
 
-const addBook = async (book) => {
+const postBook = async (book) => {
   return await http.post(config.bookAPI, book);
 };
-export { getBooks, addBook };
+export { getBooks, postBook };

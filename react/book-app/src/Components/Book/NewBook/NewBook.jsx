@@ -3,6 +3,8 @@ import React from "react";
 import Joi from "joi-browser";
 import { useState } from "react";
 import "./NewBook.css";
+import { postBook } from "../../../services/bookService";
+
 const NewBook = ({ onShowNewBook }) => {
   const [newBook, setNewBook] = useState({
     data: {
@@ -12,6 +14,7 @@ const NewBook = ({ onShowNewBook }) => {
       price: "",
       image: "",
       category: "",
+      liked: false,
     },
     errors: {},
   });
@@ -56,13 +59,33 @@ const NewBook = ({ onShowNewBook }) => {
     }
     return errors;
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const errors = validate();
     setNewBook((prevState) => {
       return { ...prevState, errors: errors || {} };
     });
+    try {
+      const book = { ...newBook.data };
+      const response = await postBook(book);
+      console.log("response of post ", response);
+      const data = { ...newBook.data };
+      for (let key of Object.keys(data)) {
+        data[key] = "";
+      }
+      setNewBook({ data: data, errors: {} });
+      window.location = "/";
+    } catch (error) {
+      console.log("error--->", error);
+      if (error.response && error.response.status === 400) {
+        const errors = { ...newBook.errors };
+        errors.username = error.response.data;
+        setNewBook((prevState) => {
+          return { ...prevState, errors };
+        });
+      }
+    }
   };
   const handleChange = (event) => {
     const errors = { ...newBook.errors };
@@ -156,8 +179,8 @@ const NewBook = ({ onShowNewBook }) => {
                 <option value="SelectCategory" hidden>
                   Select category:
                 </option>
-                <option value="Foreign">Foreign</option>
-                <option value="Albanian">Albanian</option>
+                <option value="foreign">Foreign</option>
+                <option value="albanian">Albanian</option>
               </select>
             </div>
           </div>
