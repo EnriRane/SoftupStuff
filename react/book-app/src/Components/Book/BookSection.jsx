@@ -1,4 +1,5 @@
 import BookList from "./BookList/BookList";
+import React from "react";
 import "./BookSection.css";
 const BookSection = ({ onHandleBookCategoryFilter }) => {
   // A better solution would be :

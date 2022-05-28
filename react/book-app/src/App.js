@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useCallback } from "react";
 import Header from "./Components/Header/Header";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import BookSection from "./Components/Book/BookSection";
@@ -9,7 +9,7 @@ import { bookReducer } from "./reducer/bookReducer";
 import { cartReducer } from "./reducer/cartReducer";
 import BookContext from "./context/BookContext";
 import CartContext from "./context/CartContext";
-import allBooks from "./books.json";
+import { getBooks } from "./services/bookService";
 import "./App.css";
 
 function App() {
@@ -18,13 +18,29 @@ function App() {
   const [areFavBooksShown, setAreFavBooksShown] = useState(false);
   const [isBookCartShown, setisBookCartShown] = useState(false);
   const [isAddNewBookFormShown, setIsAddNewBookFormShown] = useState(false);
-  useEffect(() => {
-    localStorage.setItem("books", JSON.stringify(allBooks.books));
-    dispatchBooks({
-      type: "addAllBooks",
-      payload: JSON.parse(localStorage.getItem("books")),
-    });
+  const [error, setError] = useState(null);
+  const fetchBooks = useCallback(async () => {
+    try {
+      const response = await getBooks();
+      if (response.status !== 200) {
+        throw new Error("You can't get the movies");
+      }
+      let books = [];
+      for (let book of Object.values(response.data)) {
+        books.push(book);
+      }
+      localStorage.setItem("books", JSON.stringify(books));
+      dispatchBooks({
+        type: "addAllBooks",
+        payload: books,
+      });
+    } catch (error) {
+      setError(error.message);
+    }
   }, []);
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
 
   const handleFavBooksAppearance = () => {
     if (areFavBooksShown) {
@@ -68,6 +84,7 @@ function App() {
   const handleDecreaseQuantity = (book) => {
     dispatchBookCart({ type: "decreaseQuantityOfBook", payload: book });
   };
+
   return (
     <React.Fragment>
       {isAddNewBookFormShown && <NewBook onShowNewBook={handleBookFormShown} />}
@@ -98,9 +115,13 @@ function App() {
         <Dashboard />
         <CartContext.Provider value={[bookCart, handleAddToCart]}>
           <BookContext.Provider value={[books, handleLike]}>
-            <BookSection
-              onHandleBookCategoryFilter={handleBookCategoryFilter}
-            />
+            {error ? (
+              <h2>{error}</h2>
+            ) : (
+              <BookSection
+                onHandleBookCategoryFilter={handleBookCategoryFilter}
+              />
+            )}
           </BookContext.Provider>
         </CartContext.Provider>
       </div>

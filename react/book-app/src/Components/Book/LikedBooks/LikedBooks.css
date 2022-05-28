@@ -1,45 +1,51 @@
 .favBooks {
   display: flex;
-  gap: 11%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .likedBooksTitle {
   text-align: center;
-  color: red;
 }
 .likedBooks ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin-top: 30px;
 }
 .likedBooks ul li {
-  margin-bottom: 20px;
+  margin: 10px;
+  text-align: center;
 }
-.favBooks i {
-  position: absolute;
-  right: 90px;
-  font-size: 3.5em;
+.likedBooks ul li {
+  color: #2f4f4f;
 }
-.favBooks i:hover {
-  cursor: pointer;
-  color: bla;
+.likedBooks ul li h3 {
+  color: rgb(48, 41, 41);
 }
-.likedBooks {
-  position: relative;
+.likedBooks ul li img {
+  width: 80px;
+  height: auto;
 }
+
 .likedBooks button {
-  position: absolute;
-  bottom: 0px;
-  right: 60px;
-  background-color: red;
-  font-size: 1.6em;
-  border-radius: 15px;
-  border: none;
-  padding: 10px 20px;
+  background-color: #04aa6d;
   color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 100px;
 }
 .likedBooks button:hover {
-  background-color: brown;
+  background-color: #45a049;
+}
+
+.likedComponent i {
+  font-size: 1.9em;
   cursor: pointer;
-  color: gray;
+}
+.likedComponent i:hover {
+  color: black;
 }

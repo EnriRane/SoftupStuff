@@ -46,5 +46,10 @@
   padding: 10px 20px;
   font-size: 1.1em;
   border: none;
-  background-color: rgb(79, 220, 220);
+  background-color: #07c27d;
+  color: white;
+}
+.addToCartButton:hover {
+  cursor: pointer;
+  background-color: #45a049;
 }

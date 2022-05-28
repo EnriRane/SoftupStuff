@@ -1,8 +1,6 @@
 const cartReducer = (cart, { type, payload }) => {
   switch (type) {
     case "addToCart":
-      console.log(cart);
-      console.log(payload);
       if (cart.find((b) => b.title === payload.title)) {
         return [...cart];
       }
@@ -10,7 +8,6 @@ const cartReducer = (cart, { type, payload }) => {
       return [...cart, newBook];
     case "increaseQuantityOfBook":
       return cart.map((book) => {
-        console.log(payload);
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
           if (sellQuantity === book.quantity || sellQuantity > book.quantity) {
@@ -23,9 +20,13 @@ const cartReducer = (cart, { type, payload }) => {
         return book;
       });
     case "decreaseQuantityOfBook":
-      return cart.map((book) => {
+      return cart.map((book, index) => {
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
+
+          if (book.sellQuantity === 1) {
+            cart.splice(index, 1);
+          }
           sellQuantity < 1
             ? (sellQuantity = 0)
             : (sellQuantity = sellQuantity - 1);
