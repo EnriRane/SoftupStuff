@@ -14,6 +14,7 @@ import "./App.css";
 
 function App() {
   const [books, dispatchBooks] = useReducer(bookReducer, []);
+  //fetch the data from firebase and add it to initial state of cart Reducer
   const [bookCart, dispatchBookCart] = useReducer(cartReducer, []);
   const [areFavBooksShown, setAreFavBooksShown] = useState(false);
   const [isBookCartShown, setisBookCartShown] = useState(false);
