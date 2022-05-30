@@ -5,6 +5,7 @@ import { useState } from 'react';
 import './NewBook.css';
 import { postBook } from '../../../services/bookService';
 import { convertToBase64 } from '../../../utilities/convertImageToBase64';
+import LoadingSpinner from '../../Spinner/Spinner';
 
 const NewBook = ({ onShowNewBook }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -193,9 +194,11 @@ const NewBook = ({ onShowNewBook }) => {
             </div>
             <p className="error">{newBook.errors.image} </p>
           </div>
-          <button onClick={onShowNewBook}>Cancel</button>
+          <button onClick={onShowNewBook}>
+            Cancel <i class="fa-solid fa-backward-step"></i>
+          </button>
           <button id={validate() ? 'addNewBookButton' : ''} disabled={validate()}>
-            Add book{isLoading ? '' : ''}
+            Add book{isLoading ? <LoadingSpinner /> : <i className="fa-solid fa-book"></i>}
           </button>
         </form>
       </div>

@@ -21,7 +21,7 @@ label {
   display: inline-block;
 }
 
-.newBookForm button {
+.newBookForm > button {
   background-color: #04aa6d;
   color: white;
   padding: 12px 20px;
@@ -31,7 +31,11 @@ label {
   float: right;
   margin-top: 20px;
   margin-right: 20px;
-  width: 100px;
+  width: 120px;
+  text-align: center;
+  display: flex;
+  gap: 7px;
+  justify-content: center;
 }
 
 .newBookForm button:hover {
@@ -60,6 +64,7 @@ label {
 }
 #addNewBookButton {
   cursor: default;
+  text-align: center;
   background-color: green;
 }
 
