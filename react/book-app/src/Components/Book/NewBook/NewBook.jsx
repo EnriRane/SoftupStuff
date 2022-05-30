@@ -1,42 +1,31 @@
-import NewBookModal from "../../Modal/NewBookModal/NewBookModal";
-import React from "react";
-import Joi from "joi-browser";
-import { useState } from "react";
-import "./NewBook.css";
-import { postBook } from "../../../services/bookService";
+import NewBookModal from '../../Modal/NewBookModal/NewBookModal';
+import React from 'react';
+import Joi from 'joi-browser';
+import { useState } from 'react';
+import './NewBook.css';
+import { postBook } from '../../../services/bookService';
+import { convertToBase64 } from '../../../utilities/convertImageToBase64';
 
 const NewBook = ({ onShowNewBook }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [newBook, setNewBook] = useState({
     data: {
-      title: "",
-      author: "",
-      quantity: "",
-      price: "",
-      image: "",
-      category: "",
-      liked: false,
+      title: '',
+      author: '',
+      quantity: '',
+      price: '',
+      image: '',
+      category: ''
     },
-    errors: {},
+    errors: {}
   });
   const schema = {
-    title: Joi.string()
-      .min(2)
-      .max(255)
-      .required()
-      .label("Title"),
-    author: Joi.string()
-      .min(2)
-      .max(255)
-      .required()
-      .label("Author"),
-    quantity: Joi.number().max(500000),
+    title: Joi.string().min(2).max(255).required().label('Title'),
+    author: Joi.string().min(2).max(255).required().label('Author'),
+    quantity: Joi.number().max(500),
     price: Joi.number().max(500000),
-    image: Joi.string()
-      .min(10)
-      .max(255)
-      .required()
-      .label("Image"),
-    category: Joi.string(),
+    image: Joi.string().min(10).required().label('Image'),
+    category: Joi.string()
   };
   const validateProperty = ({ name, value }) => {
     const input = { [name]: value };
@@ -46,14 +35,14 @@ const NewBook = ({ onShowNewBook }) => {
   };
   const validate = () => {
     const result = Joi.validate(newBook.data, schema, {
-      abortEarly: false,
+      abortEarly: false
     });
     const errors = {};
+
     if (!result.error) {
       return null;
     } else {
       for (let item of result.error.details) {
-        item.message = `${item.context.label} can't be empty`;
         errors[item.path] = item.message;
       }
     }
@@ -61,23 +50,22 @@ const NewBook = ({ onShowNewBook }) => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     const errors = validate();
     setNewBook((prevState) => {
       return { ...prevState, errors: errors || {} };
     });
     try {
-      const book = { ...newBook.data };
-      const response = await postBook(book);
-      console.log("response of post ", response);
+      const book = { ...newBook.data, liked: false };
+      await postBook(book);
+
       const data = { ...newBook.data };
       for (let key of Object.keys(data)) {
-        data[key] = "";
+        data[key] = '';
       }
       setNewBook({ data: data, errors: {} });
-      window.location = "/";
+      window.location = '/';
     } catch (error) {
-      console.log("error--->", error);
       if (error.response && error.response.status === 400) {
         const errors = { ...newBook.errors };
         errors.username = error.response.data;
@@ -85,16 +73,27 @@ const NewBook = ({ onShowNewBook }) => {
           return { ...prevState, errors };
         });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     const errors = { ...newBook.errors };
     const errorMessage = validateProperty(event.target);
     if (errorMessage) errors[event.target.name] = errorMessage;
     else delete errors[event.target.name];
 
     const data = { ...newBook.data };
-    data[event.currentTarget.name] = event.currentTarget.value;
+    if (event.target.name === 'image') {
+      const file = event.target.files[0];
+      const base64Image = await convertToBase64(file);
+      data[event.target.name] = base64Image;
+    }
+    if (event.target.name === 'author') {
+      data[event.target.name] = event.target.value.toUpperCase();
+    } else {
+      data[event.target.name] = event.target.value;
+    }
 
     setNewBook({ data, errors });
   };
@@ -171,11 +170,7 @@ const NewBook = ({ onShowNewBook }) => {
               <label htmlFor="">Category</label>
             </div>
             <div className="input">
-              <select
-                name="category"
-                onChange={handleChange}
-                value={newBook.data.category}
-              >
+              <select name="category" onChange={handleChange} value={newBook.data.category}>
                 <option value="SelectCategory" hidden>
                   Select category:
                 </option>
@@ -190,9 +185,9 @@ const NewBook = ({ onShowNewBook }) => {
             </div>
             <div className="input">
               <input
-                type="text"
+                type="file"
+                accept=".jpg, .jpeg, .png"
                 name="image"
-                value={newBook.data.image}
                 placeholder="Enter book image URL.."
                 onChange={handleChange}
               />
@@ -200,7 +195,9 @@ const NewBook = ({ onShowNewBook }) => {
             <p className="error">{newBook.errors.image} </p>
           </div>
           <button onClick={onShowNewBook}>Cancel</button>
-          <button>Add book</button>
+          <button id={validate() ? 'addNewBookButton' : ''} disabled={validate()}>
+            Add book{isLoading ? '' : ''}
+          </button>
         </form>
       </div>
     </NewBookModal>

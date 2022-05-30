@@ -4,14 +4,16 @@
 .newBookForm {
   margin-top: 50px;
 }
-input[type="text"],
-input[type="number"],
+input[type='text'],
+input[type='number'],
+input[type='file'],
 select {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
+  background-color: white;
 }
 
 label {
@@ -49,12 +51,16 @@ label {
 }
 
 .row:after {
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }
 .error {
   color: red;
+}
+#addNewBookButton {
+  cursor: default;
+  background-color: green;
 }
 
 @media screen and (max-width: 600px) {
