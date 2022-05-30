@@ -1,14 +1,13 @@
-import { postToCart, updateCart } from "../services/cartService";
-const cartReducer = async (cart, { type, payload }) => {
+const cartReducer = (cart, { type, payload }) => {
   switch (type) {
-    case "addToCart":
+    case 'addToCart':
       if (cart.find((b) => b.title === payload.title)) {
         return [...cart];
       }
       const newBook = { ...payload, sellQuantity: 1 };
-      await postToCart(newBook);
+      // await postTocart(newBook)
       return [...cart, newBook];
-    case "increaseQuantityOfBook":
+    case 'increaseQuantityOfBook':
       return cart.map((book) => {
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
@@ -17,13 +16,13 @@ const cartReducer = async (cart, { type, payload }) => {
           } else {
             sellQuantity = sellQuantity + 1;
           }
-          const newBook = { ...book, sellQuantity };
+          // const newBook = { ...book, sellQuantity };
           //  await updateCart(newBook);
-          return newBook;
+          return { ...book, sellQuantity };
         }
         return book;
       });
-    case "decreaseQuantityOfBook":
+    case 'decreaseQuantityOfBook':
       return cart.map((book, index) => {
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
@@ -31,9 +30,7 @@ const cartReducer = async (cart, { type, payload }) => {
           if (book.sellQuantity === 1) {
             cart.splice(index, 1);
           }
-          sellQuantity < 1
-            ? (sellQuantity = 0)
-            : (sellQuantity = sellQuantity - 1);
+          sellQuantity < 1 ? (sellQuantity = 0) : (sellQuantity = sellQuantity - 1);
 
           return { ...book, sellQuantity };
         }

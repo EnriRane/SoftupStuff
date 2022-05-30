@@ -1,5 +1,5 @@
-import "./Dashboard.css";
-import React from "react";
+import './Dashboard.css';
+import React from 'react';
 const Dashboard = () => {
   return (
     <div className="dashboard">
