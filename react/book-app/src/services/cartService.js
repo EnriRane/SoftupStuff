@@ -6,9 +6,13 @@ const postToCart = (book) => {
 };
 
 const updateCart = (book, id) => {
-  return http.put(config.bookAPI + `/cart.json/${id}`, book);
+  return http.put(config.bookAPI + `/cart/${id}.json`, book);
 };
 const deleteFromCart = (id) => {
-  return http.put(config.bookAPI + `/cart.json/${id}`);
+  return http.put(config.bookAPI + `/cart/${id}.json`);
 };
-export { postToCart, updateCart, deleteFromCart };
+const getCart = () => {
+  return http.get(config.bookAPI + `/cart.json/`);
+};
+
+export { getCart, postToCart, updateCart, deleteFromCart };

@@ -88,8 +88,7 @@ const NewBook = ({ onShowNewBook }) => {
       const file = event.target.files[0];
       const base64Image = await convertToBase64(file);
       data[event.target.name] = base64Image;
-    }
-    if (event.target.name === 'author') {
+    } else if (event.target.name === 'title') {
       data[event.target.name] = event.target.value.toUpperCase();
     } else {
       data[event.target.name] = event.target.value;

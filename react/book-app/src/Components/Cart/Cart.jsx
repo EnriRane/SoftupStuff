@@ -1,12 +1,7 @@
-import CartModal from "../Modal/CartModal/CartModal";
-import React from "react";
-import "./Cart.css";
-const Cart = ({
-  onhandleBookCartAppearance,
-  bookCart,
-  increaseQuantity,
-  decreaseQuantity,
-}) => {
+import CartModal from '../Modal/CartModal/CartModal';
+import React from 'react';
+import './Cart.css';
+const Cart = ({ onhandleBookCartAppearance, bookCart, increaseQuantity, decreaseQuantity }) => {
   const calculateCartValue = () => {
     let totalPrice = 0;
     for (let book of bookCart) {
@@ -40,16 +35,14 @@ const Cart = ({
                             onClick={() => {
                               increaseQuantity(book);
                             }}
-                            className="fa-solid fa-angle-up"
-                          ></i>
+                            className="fa-solid fa-angle-up"></i>
 
                           <h2>{book.sellQuantity}</h2>
                           <i
                             onClick={() => {
                               decreaseQuantity(book);
                             }}
-                            className="fa-solid fa-angle-down"
-                          ></i>
+                            className="fa-solid fa-angle-down"></i>
                         </div>
                         <h2>=</h2>
                         <h2>{book.price * book.sellQuantity}</h2>

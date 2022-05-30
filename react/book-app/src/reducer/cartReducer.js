@@ -1,11 +1,13 @@
 const cartReducer = (cart, { type, payload }) => {
   switch (type) {
+    case 'addAllItemsToCart':
+      return [...payload];
     case 'addToCart':
       if (cart.find((b) => b.title === payload.title)) {
         return [...cart];
       }
       const newBook = { ...payload, sellQuantity: 1 };
-      // await postTocart(newBook)
+
       return [...cart, newBook];
     case 'increaseQuantityOfBook':
       return cart.map((book) => {
@@ -16,8 +18,7 @@ const cartReducer = (cart, { type, payload }) => {
           } else {
             sellQuantity = sellQuantity + 1;
           }
-          // const newBook = { ...book, sellQuantity };
-          //  await updateCart(newBook);
+
           return { ...book, sellQuantity };
         }
         return book;
