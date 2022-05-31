@@ -31,7 +31,6 @@ function App() {
         books.push({ ...response.data[key], _id: key });
       }
 
-      localStorage.setItem('books', JSON.stringify(books));
       dispatchBooks({
         type: 'addAllBooks',
         payload: books
@@ -50,6 +49,7 @@ function App() {
         payload: cart
       });
     } catch (error) {
+      console.log(error);
       setError("You can't get the books ");
     }
   }, []);
@@ -117,13 +117,13 @@ function App() {
   const handleDecreaseQuantity = async (book) => {
     try {
       let sellQuantity = book.sellQuantity;
-
-      if (book.sellQuantity === 1) {
-        await deleteFromCart(book);
+      if (sellQuantity === 1) {
+        await deleteFromCart(book._id);
+      } else {
+        sellQuantity < 1 ? (sellQuantity = 0) : (sellQuantity = sellQuantity - 1);
+        const updatedBook = { ...book, sellQuantity };
+        await updateCart(updatedBook, updatedBook._id);
       }
-      sellQuantity < 1 ? (sellQuantity = 0) : (sellQuantity = sellQuantity - 1);
-      const updatedBook = { ...book, sellQuantity };
-      await updateCart(updatedBook, book._id);
       dispatchBookCart({ type: 'decreaseQuantityOfBook', payload: book });
     } catch (error) {
       alert('Quantity was not decreased');
