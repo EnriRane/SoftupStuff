@@ -1,4 +1,5 @@
 import CartModal from '../Modal/CartModal/CartModal';
+import CartItem from './CartItem/CartItem';
 import React from 'react';
 import './Cart.css';
 const Cart = ({ onhandleBookCartAppearance, bookCart, increaseQuantity, decreaseQuantity }) => {
@@ -9,6 +10,7 @@ const Cart = ({ onhandleBookCartAppearance, bookCart, increaseQuantity, decrease
     }
     return totalPrice;
   };
+
   return (
     <CartModal>
       <div className="cart">
@@ -19,36 +21,12 @@ const Cart = ({ onhandleBookCartAppearance, bookCart, increaseQuantity, decrease
           <div>
             <ul>
               {bookCart.map((book) => (
-                <li key={book.title}>
-                  {
-                    <div className="cartBook">
-                      <img src={book.image} alt="" />
-                      <div className="author">
-                        <h3>{book.title}</h3>
-                        <h5>{book.author}</h5>
-                      </div>
-                      <div className="totalPricePerBook">
-                        <h2>{book.price} </h2>
-                        <h2>x</h2>
-                        <div className="plusAndMinus">
-                          <i
-                            onClick={() => {
-                              increaseQuantity(book);
-                            }}
-                            className="fa-solid fa-angle-up"></i>
-
-                          <h2>{book.sellQuantity}</h2>
-                          <i
-                            onClick={() => {
-                              decreaseQuantity(book);
-                            }}
-                            className="fa-solid fa-angle-down"></i>
-                        </div>
-                        <h2>=</h2>
-                        <h2>{book.price * book.sellQuantity}</h2>
-                      </div>
-                    </div>
-                  }
+                <li key={book._id}>
+                  <CartItem
+                    book={book}
+                    increaseQuantity={increaseQuantity}
+                    decreaseQuantity={decreaseQuantity}
+                  />
                 </li>
               ))}
             </ul>

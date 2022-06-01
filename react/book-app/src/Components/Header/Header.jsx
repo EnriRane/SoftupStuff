@@ -1,16 +1,21 @@
-import { useState } from "react";
-import "./Header.css";
-import React from "react";
-import softupLogo from "./softupLogo.png";
+import { useContext, useState } from 'react';
+import './Header.css';
+import React from 'react';
+import softupLogo from './softupLogo.png';
+import BookContext from '../../context/BookContext';
 const Header = ({
   onhandleFavBooksAppearance,
-  onHandleSearchBookByTitle,
+
   onHandleBookCart,
-  onShowNewBook,
+  onShowNewBook
 }) => {
-  const [userSearchInput, setUserSearchInput] = useState("");
+  const [userSearchInput, setUserSearchInput] = useState('');
+  const dispatchBooks = useContext(BookContext)[2];
   const handleUserInput = (event) => {
     setUserSearchInput(event.target.value);
+  };
+  const handleSearchBookByTitle = (title) => {
+    dispatchBooks({ type: 'searchByTitle', payload: title });
   };
   return (
     <header>
@@ -22,7 +27,7 @@ const Header = ({
           value={userSearchInput}
           onChange={handleUserInput}
         />
-        <button onClick={() => onHandleSearchBookByTitle(userSearchInput)}>
+        <button onClick={() => handleSearchBookByTitle(userSearchInput)}>
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>

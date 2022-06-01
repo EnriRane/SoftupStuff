@@ -1,13 +1,23 @@
-import React from "react";
-import { useContext } from "react";
-import Book from "../BookItem/Book";
-import BookContext from "../../../context/BookContext";
-import "./BookList.css";
-import CartContext from "../../../context/CartContext";
+import React from 'react';
+import { useContext } from 'react';
+import Book from '../BookItem/Book';
+import BookContext from '../../../context/BookContext';
+import './BookList.css';
+import CartContext from '../../../context/CartContext';
+import { postToCart } from '../../../services/cartService';
 const BookList = () => {
   const [books, handleLike] = useContext(BookContext);
-  const handleAddToCart = useContext(CartContext)[1];
+  const dispatchBookCart = useContext(CartContext)[1];
 
+  const handleAddToCart = async (book) => {
+    try {
+      await postToCart({ ...book, sellQuantity: 1 });
+
+      dispatchBookCart({ type: 'addToCart', payload: book });
+    } catch (error) {
+      alert('Book was not added to cart');
+    }
+  };
   return (
     <div className="bookList">
       {books[0] === undefined ? (

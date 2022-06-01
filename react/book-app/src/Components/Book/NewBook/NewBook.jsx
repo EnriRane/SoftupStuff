@@ -195,7 +195,7 @@ const NewBook = ({ onShowNewBook }) => {
             <p className="error">{newBook.errors.image} </p>
           </div>
           <button onClick={onShowNewBook}>
-            Cancel <i class="fa-solid fa-backward-step"></i>
+            Cancel <i className="fa-solid fa-backward-step"></i>
           </button>
           <button id={validate() ? 'addNewBookButton' : ''} disabled={validate()}>
             Add book{isLoading ? <LoadingSpinner /> : <i className="fa-solid fa-book"></i>}
