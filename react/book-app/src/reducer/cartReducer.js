@@ -1,6 +1,11 @@
+import {
+  ADD_ALL_ITEMS_TO_CART,
+  INCREASE_QUANTITY_OF_BOOK,
+  DECREASE_QUANTITY_OF_BOOK
+} from '../actions/cartActions';
 const cartReducer = (cart, { type, payload }) => {
   switch (type) {
-    case 'addAllItemsToCart':
+    case ADD_ALL_ITEMS_TO_CART:
       return [...payload];
     case 'addToCart':
       if (cart.find((b) => b.title === payload.title)) {
@@ -9,7 +14,7 @@ const cartReducer = (cart, { type, payload }) => {
       const newBook = { ...payload, sellQuantity: 1 };
 
       return [...cart, newBook];
-    case 'increaseQuantityOfBook':
+    case INCREASE_QUANTITY_OF_BOOK:
       return cart.map((book) => {
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
@@ -23,7 +28,7 @@ const cartReducer = (cart, { type, payload }) => {
         }
         return book;
       });
-    case 'decreaseQuantityOfBook':
+    case DECREASE_QUANTITY_OF_BOOK:
       return cart.map((book, index) => {
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
