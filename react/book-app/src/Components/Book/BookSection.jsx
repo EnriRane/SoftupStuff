@@ -11,7 +11,7 @@ const BookSection = () => {
   //   if (category) {
   //     filteredBooks = books.filter((b) => b.category === category);
   // }
-  const dispatchBooks = useContext(BookContext)[2];
+  const { dispatchBooks } = useContext(BookContext);
   const handleBookCategoryFilter = (category) => {
     dispatchBooks({ type: 'filterBooks', payload: category });
   };

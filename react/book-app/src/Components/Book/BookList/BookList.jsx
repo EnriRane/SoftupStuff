@@ -6,8 +6,8 @@ import './BookList.css';
 import CartContext from '../../../context/CartContext';
 import { postToCart } from '../../../services/cartService';
 const BookList = () => {
-  const [books, handleLike] = useContext(BookContext);
-  const dispatchBookCart = useContext(CartContext)[1];
+  const { books, handleLike } = useContext(BookContext);
+  const { dispatchBookCart } = useContext(CartContext);
 
   const handleAddToCart = async (book) => {
     try {

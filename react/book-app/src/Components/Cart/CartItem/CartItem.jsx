@@ -3,7 +3,7 @@ import CartContext from '../../../context/CartContext';
 import { updateCart, deleteFromCart } from '../../../services/cartService';
 
 const CartItem = ({ book }) => {
-  const dispatchBookCart = useContext(CartContext)[1];
+  const { dispatchBookCart } = useContext(CartContext);
   const handleIncreaseQuantity = async (book) => {
     try {
       let sellQuantity = book.sellQuantity;

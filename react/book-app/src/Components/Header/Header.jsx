@@ -10,7 +10,7 @@ const Header = ({
   onShowNewBook
 }) => {
   const [userSearchInput, setUserSearchInput] = useState('');
-  const dispatchBooks = useContext(BookContext)[2];
+  const { dispatchBooks } = useContext(BookContext);
   const handleUserInput = (event) => {
     setUserSearchInput(event.target.value);
   };
