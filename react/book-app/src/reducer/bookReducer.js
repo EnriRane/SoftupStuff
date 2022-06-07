@@ -4,7 +4,7 @@ import {
   FILTER_BOOKS,
   SEARCH_BY_TITLE
 } from '../actions/bookActions';
-const bookReducer = (books, { type, payload }) => {
+const bookReducer = (books = [], { type, payload }) => {
   switch (type) {
     case ADD_ALL_BOOKS:
       return [...payload];

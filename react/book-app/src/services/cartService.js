@@ -21,7 +21,6 @@ const updateCart = (book, id) => {
   return http.put(config.bookAPI + `/cart/${id}.json`, book);
 };
 const deleteFromCart = (id) => {
-  console.log(config.bookAPI + `/cart/${id}.json/`);
   return http.delete(config.bookAPI + `/cart/${id}.json`);
 };
 

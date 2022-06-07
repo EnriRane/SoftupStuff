@@ -1,7 +1,7 @@
 import BookList from './BookList/BookList';
-import React, { useContext } from 'react';
+import React from 'react';
 import './BookSection.css';
-import BookContext from '../../context/BookContext';
+import { useDispatch } from 'react-redux';
 const BookSection = () => {
   // A better solution would be :
   //- not dispatching the category but creating the event handlers in here
@@ -11,9 +11,9 @@ const BookSection = () => {
   //   if (category) {
   //     filteredBooks = books.filter((b) => b.category === category);
   // }
-  const { dispatchBooks } = useContext(BookContext);
+  const dispatch = useDispatch();
   const handleBookCategoryFilter = (category) => {
-    dispatchBooks({ type: 'filterBooks', payload: category });
+    dispatch({ type: 'filterBooks', payload: category });
   };
   return (
     <div>

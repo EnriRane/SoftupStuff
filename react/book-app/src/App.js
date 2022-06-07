@@ -6,22 +6,48 @@ import LikedBooks from './Components/Book/LikedBooks/LikedBooks';
 import Cart from './Components/Cart/Cart';
 import NewBook from './Components/Book/NewBook/NewBook';
 import BookContext from './context/BookContext';
-import CartContext from './context/CartContext';
+import { getCart } from './services/cartService';
+import { getBooks } from './services/bookService';
 
 import './App.css';
+import { useDispatch } from 'react-redux';
 
 function App() {
-  const { books, handleLike, getAllBooks } = useContext(BookContext);
-  const { bookCart, getAllCartData } = useContext(CartContext);
+  const dispatch = useDispatch();
+
+  const { handleLike } = useContext(BookContext);
+
   const [areFavBooksShown, setAreFavBooksShown] = useState(false);
   const [isBookCartShown, setisBookCartShown] = useState(false);
   const [isAddNewBookFormShown, setIsAddNewBookFormShown] = useState(false);
   const [error, setError] = useState(null);
   const fetchBooksAndCartData = useCallback(async () => {
     try {
-      await getAllBooks();
-      await getAllCartData();
+      const bookData = await getBooks();
+      let books = [];
+      if (bookData) {
+        for (let key of Object.keys(bookData)) {
+          books.push({ ...bookData[key], _id: key });
+        }
+      }
+      dispatch({
+        type: 'addAllBooks',
+        payload: books
+      });
+
+      const cartData = await getCart();
+      let cart = [];
+      if (cartData) {
+        for (let key of Object.keys(cartData)) {
+          cart.push({ ...cartData[key], _id: key });
+        }
+      }
+      dispatch({
+        type: 'addAllItemsToCart',
+        payload: cart
+      });
     } catch (error) {
+      console.log(error);
       setError(error.message);
     }
   }, []);
@@ -55,16 +81,10 @@ function App() {
       {isAddNewBookFormShown && <NewBook onShowNewBook={handleBookFormApperance} />}
 
       {areFavBooksShown && (
-        <LikedBooks
-          books={books}
-          onhandleFavBooksAppearance={handleFavBooksAppearance}
-          onLike={handleLike}
-        />
+        <LikedBooks onhandleFavBooksAppearance={handleFavBooksAppearance} onLike={handleLike} />
       )}
 
-      {isBookCartShown && (
-        <Cart bookCart={bookCart} onhandleBookCartAppearance={handleBookCartAppearance} />
-      )}
+      {isBookCartShown && <Cart onhandleBookCartAppearance={handleBookCartAppearance} />}
       <div className="app">
         <Header
           onhandleFavBooksAppearance={handleFavBooksAppearance}

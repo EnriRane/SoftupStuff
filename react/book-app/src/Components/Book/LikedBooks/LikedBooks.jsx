@@ -1,9 +1,10 @@
-import Modal from "../../Modal/Modal";
-import React from "react";
-import "./LikedBooks.css";
-const LikedBooks = ({ books, onhandleFavBooksAppearance, onLike }) => {
+import Modal from '../../Modal/Modal';
+import React from 'react';
+import './LikedBooks.css';
+import { useSelector } from 'react-redux';
+const LikedBooks = ({ onhandleFavBooksAppearance, onLike }) => {
+  const books = useSelector((state) => state.books);
   const favoriteBooks = books.filter((b) => b.liked === true);
-
   return (
     <Modal>
       <div className="likedBooks">
@@ -21,10 +22,7 @@ const LikedBooks = ({ books, onhandleFavBooksAppearance, onLike }) => {
                     <h5>{book.author}</h5>
                   </div>
                   <div className="likedComponent">
-                    <i
-                      onClick={() => onLike(book)}
-                      className="fa-solid fa-heart liked"
-                    ></i>
+                    <i onClick={() => onLike(book)} className="fa-solid fa-heart liked"></i>
                   </div>
                 </div>
               </li>

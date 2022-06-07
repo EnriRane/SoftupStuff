@@ -3,17 +3,19 @@ import { useContext } from 'react';
 import Book from '../BookItem/Book';
 import BookContext from '../../../context/BookContext';
 import './BookList.css';
-import CartContext from '../../../context/CartContext';
 import { postToCart } from '../../../services/cartService';
+import { useDispatch, useSelector } from 'react-redux';
 const BookList = () => {
-  const { books, handleLike } = useContext(BookContext);
-  const { dispatchBookCart } = useContext(CartContext);
+  const dispatch = useDispatch();
+
+  const { handleLike } = useContext(BookContext);
+  const books = useSelector((state) => state.books);
 
   const handleAddToCart = async (book) => {
     try {
       await postToCart({ ...book, sellQuantity: 1 });
 
-      dispatchBookCart({ type: 'addToCart', payload: book });
+      dispatch({ type: 'addToCart', payload: book });
     } catch (error) {
       alert('Book was not added to cart');
     }

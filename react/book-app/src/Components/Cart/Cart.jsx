@@ -1,8 +1,11 @@
 import CartModal from '../Modal/CartModal/CartModal';
 import CartItem from './CartItem/CartItem';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './Cart.css';
-const Cart = ({ onhandleBookCartAppearance, bookCart, increaseQuantity, decreaseQuantity }) => {
+
+const Cart = ({ onhandleBookCartAppearance, increaseQuantity, decreaseQuantity }) => {
+  const bookCart = useSelector((state) => state.cart);
   const calculateCartValue = () => {
     let totalPrice = 0;
     for (let book of bookCart) {
@@ -10,7 +13,7 @@ const Cart = ({ onhandleBookCartAppearance, bookCart, increaseQuantity, decrease
     }
     return totalPrice;
   };
-
+  console.log('bookCart', bookCart);
   return (
     <CartModal>
       <div className="cart">

@@ -3,7 +3,7 @@ import {
   INCREASE_QUANTITY_OF_BOOK,
   DECREASE_QUANTITY_OF_BOOK
 } from '../actions/cartActions';
-const cartReducer = (cart, { type, payload }) => {
+const cartReducer = (cart = [], { type, payload }) => {
   switch (type) {
     case ADD_ALL_ITEMS_TO_CART:
       return [...payload];
@@ -29,19 +29,17 @@ const cartReducer = (cart, { type, payload }) => {
         return book;
       });
     case DECREASE_QUANTITY_OF_BOOK:
-      return cart.map((book, index) => {
+      const newCart = cart.map((book, index) => {
         if (book.title === payload.title) {
           let sellQuantity = book.sellQuantity;
 
-          if (book.sellQuantity === 1) {
-            cart.splice(index, 1);
-          }
           sellQuantity < 1 ? (sellQuantity = 0) : (sellQuantity = sellQuantity - 1);
-
           return { ...book, sellQuantity };
         }
         return book;
       });
+
+      return newCart.filter((carItem) => carItem.sellQuantity > 0);
     default:
       return [...cart];
   }

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import CartContext from '../../../context/CartContext';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { updateCart, deleteFromCart } from '../../../services/cartService';
 
 const CartItem = ({ book }) => {
-  const { dispatchBookCart } = useContext(CartContext);
+  const dispatch = useDispatch();
   const handleIncreaseQuantity = async (book) => {
     try {
       let sellQuantity = book.sellQuantity;
@@ -14,7 +14,7 @@ const CartItem = ({ book }) => {
       }
       const updatedBook = { ...book, sellQuantity };
       await updateCart(updatedBook, book._id);
-      dispatchBookCart({ type: 'increaseQuantityOfBook', payload: book });
+      dispatch({ type: 'increaseQuantityOfBook', payload: book });
     } catch (error) {
       alert('Quantity was not increased');
     }
@@ -30,7 +30,7 @@ const CartItem = ({ book }) => {
         const updatedBook = { ...book, sellQuantity };
         await updateCart(updatedBook, updatedBook._id);
       }
-      dispatchBookCart({ type: 'decreaseQuantityOfBook', payload: book });
+      dispatch({ type: 'decreaseQuantityOfBook', payload: book });
     } catch (error) {
       alert('Quantity was not decreased');
     }

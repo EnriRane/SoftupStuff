@@ -1,21 +1,21 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import './Header.css';
 import React from 'react';
 import softupLogo from './softupLogo.png';
-import BookContext from '../../context/BookContext';
+import { useDispatch } from 'react-redux';
 const Header = ({
   onhandleFavBooksAppearance,
 
   onHandleBookCart,
   onShowNewBook
 }) => {
+  const dispatch = useDispatch();
   const [userSearchInput, setUserSearchInput] = useState('');
-  const { dispatchBooks } = useContext(BookContext);
   const handleUserInput = (event) => {
     setUserSearchInput(event.target.value);
   };
   const handleSearchBookByTitle = (title) => {
-    dispatchBooks({ type: 'searchByTitle', payload: title });
+    dispatch({ type: 'searchByTitle', payload: title });
   };
   return (
     <header>
