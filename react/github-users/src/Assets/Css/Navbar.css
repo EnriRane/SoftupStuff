@@ -1,0 +1,13 @@
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 130px;
+  gap: 20px;
+  background-color: black;
+  color: white;
+}
+.title > div > img {
+  width: 100px;
+  height: auto;
+}
