@@ -5,12 +5,9 @@ const initialState = {
 const userReducer = (users = initialState, { type, payload }) => {
   switch (type) {
     case "addAllUsers":
-      if (users.usersList.some((user) => user.id === payload[1].id)) {
-        const newUsers = [...payload];
-        return { ...users, usersList: newUsers };
-      }
       const newUsers = [...users.usersList, ...payload];
-      return { ...users, usersList: newUsers };
+      const newState = { ...users, usersList: newUsers };
+      return newState;
     case "changeLastId":
       return { ...users, lastId: payload };
     default:

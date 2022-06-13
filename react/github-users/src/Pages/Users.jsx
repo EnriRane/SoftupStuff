@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import User from "../Components/User/User";
 import Spinner from "../Components/Spinner/Spinner";
-import "../Assets/Css/Users.css";
 import { useDispatch } from "react-redux";
 import { getUsers } from "../Services/userService";
 import { useSelector } from "react-redux";
 import { getAllUsers } from "../redux/reducers/userReducer";
 import { getFinalId } from "../utils/getLastIdInArray";
 import { useLocation } from "react-router-dom";
+import "../Assets/Css/Users.css";
+
+let firstTimeRender = true;
 
 const Users = () => {
   const [error, setError] = useState("");
@@ -17,6 +19,8 @@ const Users = () => {
 
   const lastId = useSelector((state) => state.users.lastId);
   const users = useSelector((state) => getAllUsers(state));
+
+  console.log("USERS--->", users);
   const getAndDispatchUsers = async () => {
     setIsPending(true);
     try {
@@ -31,15 +35,20 @@ const Users = () => {
     }
   };
   const getSomeUsers = useCallback(async () => {
-    console.log(location);
     await getAndDispatchUsers();
-  }, [dispatch]);
+  }, [dispatch, location.state]);
+
   useEffect(() => {
-    getSomeUsers();
+    if (firstTimeRender) {
+      getSomeUsers();
+    }
+    firstTimeRender = false;
   }, [getSomeUsers]);
+
   const handleLoadMoreUsers = async () => {
     await getAndDispatchUsers();
   };
+
   if (error) {
     return (
       <h1 className="error">
@@ -50,22 +59,20 @@ const Users = () => {
   }
   return (
     <div className="users">
-      {isPending ? (
-        <Spinner />
-      ) : (
-        <div>
-          <ul className="usersList">
-            {users.map((user) => (
-              <User key={user.id || Math.random(50)} user={user} />
-            ))}
-          </ul>
-          <div>
-            <button onClick={handleLoadMoreUsers} className="load">
-              Load more...
-            </button>
-          </div>
-        </div>
-      )}
+      {isPending ? <Spinner /> : null}
+
+      <div>
+        <ul className="usersList">
+          {users.map((user) => (
+            <User key={user.id || Math.random(50)} user={user} id={user.id} />
+          ))}
+        </ul>
+        {isPending ? null : (
+          <button id="load" onClick={handleLoadMoreUsers} className="load">
+            Load users
+          </button>
+        )}
+      </div>
     </div>
   );
 };
