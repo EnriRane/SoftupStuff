@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../Assets/Css/UserDetails.css";
 import { getUser } from "../Services/userService";
 import LoadingSpinner from "../Components/Spinner/Spinner";
+
 const UserDetails = () => {
   const [error, setError] = useState(false);
   const [user, setUser] = useState({});
