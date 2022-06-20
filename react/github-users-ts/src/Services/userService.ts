@@ -12,12 +12,8 @@ const getUsers = async (lastId: number) => {
   }
 };
 const getUser = async (userId: string) => {
-  try {
-    const response = await http.get(`${config.apiUrl}/${userId}`);
-    return response.data;
-  } catch (error) {
-    return error;
-  }
+  const response = await http.get(`${config.apiUrl}/${userId}`);
+  return response.data;
 };
 
 export { getUsers, getUser };
