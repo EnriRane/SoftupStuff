@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
   return (
@@ -9,7 +10,14 @@ function App() {
           <Route path="login" element={<p>login</p>}></Route>
           <Route path="logout" element={<p>logout</p>}></Route>
         </Route>
-        <Route path="/app" element={<p>Enri</p>}>
+        <Route
+          path="/app"
+          element={
+            <ProtectedRoute>
+              <p>app</p>
+            </ProtectedRoute>
+          }
+        >
           <Route path="books" element={<p />}>
             <Route path=":id" element={<p>id of book</p>}></Route>
           </Route>
