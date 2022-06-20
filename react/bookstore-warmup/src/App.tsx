@@ -1,14 +1,18 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import Logout from "./components/common/Logout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import Login from "./components/Login/Login";
+import Auth from "./components/routes/auth/Auth";
+import "../src/assets/styles/App.scss";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/auth" element={<p>auth</p>}>
-          <Route path="login" element={<p>login</p>}></Route>
-          <Route path="logout" element={<p>logout</p>}></Route>
+        <Route path="/auth" element={<Auth />}>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="logout" element={<Logout />}></Route>
         </Route>
         <Route
           path="/app"
