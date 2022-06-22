@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Logout from "./components/common/Logout/Logout";
+import Logout from "./components/routes/auth/Logout/Logout";
 import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute";
 import Login from "./components/routes/auth/Login/Login";
 import Auth from "./components/routes/auth/Auth";
@@ -9,6 +9,7 @@ import i18next from "./services/translationService";
 import "../src/assets/styles/App.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import NotFound from "./components/common/NotFound/NotFound";
 
 const App: React.FC = () => {
   return (
@@ -29,12 +30,12 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           >
-            <Route path="books" element={<p />}>
+            <Route path="books" element={<p>books</p>}>
               <Route path=":id" element={<p>id of book</p>}></Route>
             </Route>
             <Route path="settings" element={<p>settings</p>}></Route>
           </Route>
-          <Route path="*" element={<p>not found</p>}></Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </I18nextProvider>
     </div>

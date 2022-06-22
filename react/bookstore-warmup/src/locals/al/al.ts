@@ -20,6 +20,10 @@ const al = {
         required: "Vendos username",
       },
     },
+    notFound: {
+      button: "Kthehu prapa",
+      description: "Faqja qe ju po kerkonit nuk u gjet !",
+    },
     language: {
       english: "Anglisht",
       albanian: "Shqip",

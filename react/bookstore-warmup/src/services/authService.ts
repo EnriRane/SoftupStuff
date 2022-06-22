@@ -1,6 +1,6 @@
 export const saveJwtToStorage = (jwt: string) => {
   localStorage.setItem("token", jwt);
 };
-export const removeJwtFromStorage = (jwt: string) => {
+export const removeJwtFromStorage = () => {
   localStorage.removeItem("token");
 };

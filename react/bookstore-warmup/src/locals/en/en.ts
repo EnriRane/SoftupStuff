@@ -19,6 +19,10 @@ const en = {
         required: "Username required",
       },
     },
+    notFound: {
+      button: "Go back",
+      description: "The page you were looking for was not found",
+    },
     language: {
       english: "English",
       albanian: "Albanian",
