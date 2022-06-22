@@ -7,9 +7,14 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import "./LoginForm.scss";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
@@ -41,8 +46,15 @@ const LoginForm = () => {
           }}
           validationSchema={LoginSchema}
           onSubmit={(values) => {
-            // same shape as initial values
-            console.log("values", values);
+            dispatch(
+              loginUser(
+                {
+                  username: values.username,
+                  password: values.password,
+                },
+                navigate
+              ) as any
+            );
           }}
         >
           {({ errors, values }) => (

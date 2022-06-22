@@ -7,10 +7,13 @@ import Auth from "./components/routes/auth/Auth";
 import { I18nextProvider } from "react-i18next";
 import i18next from "./services/translationService";
 import "../src/assets/styles/App.scss";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
+      <ToastContainer />
       <I18nextProvider i18n={i18next}>
         <Routes>
           <Route path="/" element={<Navigate to="/app/books" />} />
@@ -36,6 +39,6 @@ function App() {
       </I18nextProvider>
     </div>
   );
-}
+};
 
 export default App;
