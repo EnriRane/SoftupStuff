@@ -2,6 +2,8 @@ import { PageHeader, Dropdown, Menu } from "antd";
 import { TranslationOutlined } from "@ant-design/icons";
 import i18n from "../../../services/translationService";
 import { useTranslation } from "react-i18next";
+import albanianFlag from "../../../assets/images/albania.png";
+import britishFlag from "../../../assets/images/united-kingdom.png";
 import "./Translator.scss";
 
 const Translator = () => {
@@ -20,6 +22,7 @@ const Translator = () => {
         {
           label: (
             <div className="label" onClick={enLanguageHandler}>
+              <img src={britishFlag} alt="british" />
               {t("language.english")}
             </div>
           ),
@@ -28,6 +31,7 @@ const Translator = () => {
         {
           label: (
             <div className="label" onClick={sqLanguageHandler}>
+              <img src={albanianFlag} alt="albanian" />
               {t("language.albanian")}
             </div>
           ),

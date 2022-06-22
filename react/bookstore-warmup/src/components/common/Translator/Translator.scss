@@ -1,7 +1,8 @@
 .label {
   width: 100px;
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  gap: 8px;
 }
 .translation-outlined {
   font-size: 20px;
