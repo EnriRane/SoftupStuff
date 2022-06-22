@@ -1,8 +1,7 @@
 import { Outlet } from "react-router-dom";
 import "./Auth.scss";
-interface AuthProps {}
 
-const Auth: React.FC<AuthProps> = () => {
+const Auth: React.FC = () => {
   return (
     <div>
       <Outlet />
