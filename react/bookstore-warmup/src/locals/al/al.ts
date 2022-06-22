@@ -7,8 +7,18 @@ const al = {
       rememberMe: "Me mbaj mend",
       username: "Ju lutem vendosni username",
       password: "Ju lutem vendosni passwordin",
-      usernameError: "Username nuk duhet te jete bosh",
-      passwordError: "Password nuk duhet te jete bosh",
+    },
+    validation: {
+      password: {
+        min: "Passwordi duhet te jete me i gjate ",
+        max: "Passwordi duhet te jete me i shkurter ",
+        required: "Vendos passwordin",
+      },
+      username: {
+        min: "Username duhet te jete me i gjate",
+        max: "Username duhet te jete me i shkurter",
+        required: "Vendos username",
+      },
     },
     language: {
       english: "Anglisht",

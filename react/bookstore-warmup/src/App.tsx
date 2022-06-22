@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Logout from "./components/common/Logout/Logout";
 import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute";
-import Login from "./components/Login/Login";
+import Login from "./components/routes/auth/Login/Login";
 import Auth from "./components/routes/auth/Auth";
 import { I18nextProvider } from "react-i18next";
 import i18next from "./services/translationService";

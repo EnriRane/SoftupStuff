@@ -1,15 +1,26 @@
 import { useTranslation } from "react-i18next";
 import softupLogo from "../../../assets/images/softupLogo.png";
-import { Button, Form, Input, Checkbox } from "antd";
+import { Form, Input, SubmitButton } from "formik-antd";
+import Checkbox from "antd/lib/checkbox/Checkbox";
+
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import * as Yup from "yup";
+import { Formik } from "formik";
 import "./LoginForm.scss";
 
 const LoginForm = () => {
   const { t } = useTranslation();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
+  const LoginSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(2, `${t("validation.username.min")}`)
+      .max(50, `${t("validation.username.max")}`)
+      .required(`${t("validation.username.required")}`),
+    password: Yup.string()
+      .min(2, `${t("validation.password.min")}`)
+      .max(50, `${t("validation.password.max")}`)
+      .required(`${t("validation.password.required")}`),
+  });
 
   return (
     <div className="login-wrapper">
@@ -23,52 +34,79 @@ const LoginForm = () => {
       </div>
       <span className="descripton-login">{t("login.description")}</span>
       <div className="login-container">
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
+        <Formik
+          initialValues={{
+            username: "",
+            password: "",
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={(values) => {
+            // same shape as initial values
+            console.log("values", values);
+          }}
         >
-          <Form.Item
-            name="username"
-            className="fields-field-style"
-            rules={[{ required: true, message: `${t("login.usernameError")}` }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              className="login-input-style"
-              placeholder={t("login.username")}
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            className="fields-field-style"
-            rules={[{ required: true, message: `${t("login.passwordError")}` }]}
-          >
-            <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              className="login-input-style"
-              type="password"
-              placeholder={t("login.password")}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox className="rememberMe">
-                {t("login.rememberMe")}
-              </Checkbox>
-            </Form.Item>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
+          {({ errors, values }) => (
+            <Form
+              name="normal_login"
+              className="login-form"
+              initialValues={{ remember: true }}
             >
-              {t("login.log")}
-            </Button>
-          </Form.Item>
-        </Form>
+              <Form.Item
+                name="username"
+                className="fields-field-style"
+                rules={[{ required: true, message: `${errors.username}` }]}
+              >
+                <Input
+                  name="username"
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  className="login-input-style"
+                  placeholder={t("login.username")}
+                />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                className="fields-field-style"
+                rules={[
+                  {
+                    required: true,
+                    message: `${errors.password}`,
+                  },
+                ]}
+              >
+                <Input.Password
+                  name="password"
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  className="login-input-style"
+                  type="password"
+                  placeholder={t("login.password")}
+                />
+              </Form.Item>
+
+              <Form.Item name="fields-field-style">
+                <Form.Item
+                  className="check"
+                  name="remember"
+                  valuePropName="checked"
+                  noStyle
+                >
+                  <Checkbox className="rememberMe" name="remember">
+                    {t("login.rememberMe")}
+                  </Checkbox>
+                </Form.Item>
+              </Form.Item>
+
+              <Form.Item name="fields-field-style">
+                <SubmitButton
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  {t("login.log")}
+                </SubmitButton>
+              </Form.Item>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
