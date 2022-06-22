@@ -1,7 +1,7 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Logout from "./components/common/Logout";
-import ProtectedRoute from "./components/common/ProtectedRoute";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Logout from "./components/common/Logout/Logout";
+import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute";
 import Login from "./components/Login/Login";
 import Auth from "./components/routes/auth/Auth";
 import { I18nextProvider } from "react-i18next";
@@ -13,6 +13,7 @@ function App() {
     <div className="App">
       <I18nextProvider i18n={i18next}>
         <Routes>
+          <Route path="/" element={<Navigate to="/app/books" />} />
           <Route path="/auth" element={<Auth />}>
             <Route path="login" element={<Login />}></Route>
             <Route path="logout" element={<Logout />}></Route>
