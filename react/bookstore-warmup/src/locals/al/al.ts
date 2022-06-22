@@ -8,6 +8,7 @@ const al = {
       username: "Ju lutem vendosni username",
       password: "Ju lutem vendosni passwordin",
     },
+    logout: "Dil jashte",
     validation: {
       password: {
         min: "Passwordi duhet te jete me i gjate ",

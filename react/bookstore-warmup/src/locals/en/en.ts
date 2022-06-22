@@ -7,6 +7,7 @@ const en = {
       username: "Please enter username",
       password: "Please enter password",
     },
+    logout: "Logout",
     validation: {
       password: {
         min: "Too short",

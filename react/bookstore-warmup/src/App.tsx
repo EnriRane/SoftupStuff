@@ -10,6 +10,7 @@ import "../src/assets/styles/App.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import NotFound from "./components/common/NotFound/NotFound";
+import AppAppearance from "./components/routes/app/AppApperance";
 
 const App: React.FC = () => {
   return (
@@ -26,7 +27,7 @@ const App: React.FC = () => {
             path="/app"
             element={
               <ProtectedRoute>
-                <p>app</p>
+                <AppAppearance />
               </ProtectedRoute>
             }
           >
