@@ -15,6 +15,11 @@ const slice = createSlice({
     addAllBooks: (state: BookState, { payload }: PayloadAction<IBook[]>) => {
       state.booksData = [...payload];
     },
+    deleteBook: (state: BookState, { payload }: PayloadAction<string>) => {
+      state.booksData = state.booksData.filter(
+        (book) => book.title !== payload
+      );
+    },
   },
 });
 
@@ -27,5 +32,5 @@ export const fetchBooks = () => {
   };
 };
 
-export const { addAllBooks } = slice.actions;
+export const { addAllBooks, deleteBook } = slice.actions;
 export default slice.reducer;

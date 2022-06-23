@@ -8,7 +8,6 @@ import { login } from "../../services/userService";
 import { AppDispatch } from "../store/store";
 import { IUser } from "../../models/IUser";
 import { NavigateFunction } from "react-router-dom";
-import { fetchBooks } from "./bookSlice";
 
 const slice = createSlice({
   name: "user",
@@ -38,7 +37,7 @@ export const loginUser = (
       };
       dispatch(addUser(userData));
       saveJwtToStorage(data.token);
-      dispatch(fetchBooks());
+
       navigate("/app/books");
     } catch (error) {}
   };

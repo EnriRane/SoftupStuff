@@ -1,23 +1,29 @@
-import { Space, Table, Tag, Button, Input } from "antd";
+import { Space, Table, Button, Input } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
-import "./BooksTable.scss";
 import { Link } from "react-router-dom";
 import { IBook } from "../../../models/IBook";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store/store";
+import { useEffect } from "react";
+import { deleteBook, fetchBooks } from "../../../redux/slices/bookSlice";
+import "./BooksTable.scss";
 const { Search } = Input;
 
 const BooksTable: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBooks() as any);
+  }, [dispatch]);
+
   const books = useSelector((state: RootState) => state.books.booksData);
-  console.log(books);
 
   const columns: ColumnsType<IBook> = [
     {
       title: "Title",
       dataIndex: "title",
       key: "name",
-      render: (text) => <Link to="">{text}</Link>,
+      render: (text: string) => <Link to="">{text}</Link>,
     },
     {
       title: "Author",
@@ -26,8 +32,9 @@ const BooksTable: React.FC = () => {
     },
     {
       title: "Publication",
-      dataIndex: "publication",
-      key: "publication",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (date: string) => <div>{new Date(date).toLocaleString()}</div>,
     },
     {
       title: "Genre",
@@ -39,26 +46,19 @@ const BooksTable: React.FC = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Link to={""}>
+          <Link to={`:${record.title}`}>
             <MoreOutlined />
           </Link>
-          <Link to={""}>
+          <Link to="">
             <EditOutlined />
           </Link>
           <Link to={""}>
-            <DeleteOutlined />
+            <div onClick={() => dispatch(deleteBook(record.title))}>
+              <DeleteOutlined />
+            </div>
           </Link>
         </Space>
       ),
-    },
-  ];
-
-  const data: IBook[] = [
-    {
-      title: "Te Mjeret",
-      author: "Sa",
-      publication: "dsadas",
-      genre: "roman",
     },
   ];
 

@@ -9,9 +9,9 @@ import i18next from "./services/translationService";
 import { ToastContainer } from "react-toastify";
 import NotFound from "./components/common/NotFound/NotFound";
 import AppAppearance from "./components/routes/app/AppApperance";
+import BooksTable from "./components/specificComponents/BooksTable/BooksTable";
 import "../src/assets/styles/App.scss";
 import "react-toastify/dist/ReactToastify.css";
-import BooksTable from "./components/specificComponents/BooksTable/BooksTable";
 
 const App: React.FC = () => {
   return (
@@ -33,7 +33,7 @@ const App: React.FC = () => {
             }
           >
             <Route path="books" element={<BooksTable />}>
-              <Route path=":id" element={<p>id of book</p>}></Route>
+              <Route path=":title" element={<p>id of book</p>}></Route>
             </Route>
             <Route path="settings" element={<p>settings</p>}></Route>
           </Route>
