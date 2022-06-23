@@ -1,16 +1,19 @@
 import { Space, Table, Button, Input } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
+import BookModal from "../BookModal/BookModal";
 import { Link } from "react-router-dom";
 import { IBook } from "../../../models/IBook";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { deleteBook, fetchBooks } from "../../../redux/slices/bookSlice";
 import "./BooksTable.scss";
 const { Search } = Input;
 
 const BooksTable: React.FC = () => {
+  const [showModal, setshowModal] = useState(false);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchBooks() as any);
@@ -72,7 +75,11 @@ const BooksTable: React.FC = () => {
           size="large"
           // loading
         />
-        <Button className="add-book-button" type="primary">
+        <Button
+          className="add-book-button"
+          type="primary"
+          onClick={() => setshowModal(true)}
+        >
           Add Book
         </Button>
       </div>
@@ -81,6 +88,7 @@ const BooksTable: React.FC = () => {
         columns={columns}
         dataSource={books}
       />
+      <BookModal setshowModal={setshowModal} showModal={showModal} />
     </div>
   );
 };

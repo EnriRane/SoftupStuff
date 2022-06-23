@@ -29,6 +29,22 @@ const al = {
       english: "Anglisht",
       albanian: "Shqip",
     },
+    bookForm: {
+      title: "Titulli",
+      titlePlaceHolder: "Vendosni titullin e librit",
+      author: "Autori",
+      authorPlaceHolder: "Vendosni titullin e autorit",
+      genre: "Zhaneri",
+      genrePlaceHolder: "Zhaneri",
+      publication: "Publikimi",
+      publicationPlaceHolder: "Zgjidhni daten",
+      error: {
+        titleMax: "Titulli eshte shume i gjate",
+        authorMax: "Emri i autorit eshte shume i gjate",
+        titleReq: "Ju lutem vendsoni titullin",
+        authorReq: "Ju lutem vendsoni autorin",
+      },
+    },
   },
 };
 

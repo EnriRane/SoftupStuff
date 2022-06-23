@@ -28,6 +28,22 @@ const en = {
       english: "English",
       albanian: "Albanian",
     },
+    bookForm: {
+      title: "Title",
+      titlePlaceHolder: "Enter the title of book",
+      author: "Author",
+      authorPlaceHolder: "Enter the author of book",
+      genre: "Genre",
+      genrePlaceHolder: "Genre",
+      publication: "Publication",
+      publicationPlaceHolder: "Select date",
+      error: {
+        titleMax: "Title is too long",
+        authorMax: "Author name is too long",
+        titleReq: "Enter title",
+        authorReq: "Enter author",
+      },
+    },
   },
 };
 
