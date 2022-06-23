@@ -7,7 +7,11 @@ import { IBook } from "../../../models/IBook";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store/store";
 import { useEffect, useState } from "react";
-import { deleteBook, fetchBooks } from "../../../redux/slices/bookSlice";
+import {
+  deleteBook,
+  fetchBooks,
+  addSearchQuery,
+} from "../../../redux/slices/bookSlice";
 import "./BooksTable.scss";
 const { Search } = Input;
 
@@ -19,7 +23,16 @@ const BooksTable: React.FC = () => {
     dispatch(fetchBooks() as any);
   }, [dispatch]);
 
-  const books = useSelector((state: RootState) => state.books.booksData);
+  const onSearch = (searchQuery: string) =>
+    dispatch(addSearchQuery(searchQuery));
+
+  let books: IBook[] = useSelector((state: RootState) => state.books.booksData);
+  const searchQuery = useSelector(
+    (state: RootState) => state.books.searchQuery
+  );
+  if (searchQuery) {
+    books = books.filter((book) => book.title === searchQuery);
+  }
 
   const columns: ColumnsType<IBook> = [
     {
@@ -73,6 +86,7 @@ const BooksTable: React.FC = () => {
           placeholder="Search with name"
           enterButton="Search"
           size="large"
+          onSearch={onSearch}
           // loading
         />
         <Button

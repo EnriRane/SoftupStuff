@@ -4,12 +4,14 @@ import { getBooks } from "../../services/bookService";
 import { AppDispatch } from "../store/store";
 type BookState = {
   booksData: IBook[];
+  searchQuery: string;
 };
 
 const slice = createSlice({
   name: "books",
   initialState: {
     booksData: [],
+    searchQuery: "",
   },
   reducers: {
     addAllBooks: (state: BookState, { payload }: PayloadAction<IBook[]>) => {
@@ -19,6 +21,9 @@ const slice = createSlice({
       state.booksData = state.booksData.filter(
         (book) => book.title !== payload
       );
+    },
+    addSearchQuery: (state: BookState, { payload }: PayloadAction<string>) => {
+      state.searchQuery = payload;
     },
   },
 });
@@ -32,5 +37,5 @@ export const fetchBooks = () => {
   };
 };
 
-export const { addAllBooks, deleteBook } = slice.actions;
+export const { addAllBooks, deleteBook, addSearchQuery } = slice.actions;
 export default slice.reducer;
