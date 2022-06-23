@@ -12,23 +12,21 @@ axios.interceptors.response.use(
       error.response.status < 500;
     if (!expectedError) {
       toast.error("An unexpected error occurred", { theme: "dark" });
+      console.log(error.response?.status);
       return Promise.reject(error);
     } else {
+      console.log(error.response?.status);
       toast.error("You made a bad request", { theme: "dark" });
       return Promise.reject(error);
     }
   }
 );
 
-export function setJwt(jwt: string) {
-  axios.defaults.headers.common["x-auth-service"] = jwt;
-}
 const http = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
-  setJwt,
 };
 
 export default http;

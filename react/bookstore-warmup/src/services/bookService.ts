@@ -1,9 +1,14 @@
 import http from "./httpService";
 import config from "../config/config.json";
 import { IBook } from "../models/IBook";
+import { getToken } from "./authService";
 
-const fetchBooks = async () => {
-  const { data } = await http.get(`${config.apiUrl}/books`);
+const getBooks = async () => {
+  const { data } = await http.get(`${config.apiUrl}/books`, {
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
+  });
   return data;
 };
 
@@ -17,4 +22,4 @@ const updateBook = async (book: IBook) => {
   return data;
 };
 
-export { fetchBooks, postBook, updateBook };
+export { getBooks, postBook, updateBook };

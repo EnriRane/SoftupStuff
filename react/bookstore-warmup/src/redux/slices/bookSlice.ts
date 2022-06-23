@@ -1,20 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBook } from "../../models/IBook";
+import { getBooks } from "../../services/bookService";
+import { AppDispatch } from "../store/store";
 type BookState = {
-  books: IBook[];
+  booksData: IBook[];
 };
 
 const slice = createSlice({
   name: "books",
   initialState: {
-    books: [],
+    booksData: [],
   },
   reducers: {
-    getAllBooks: (state: BookState, { payload }: PayloadAction<IBook[]>) => {
-      state.books = [...payload];
+    addAllBooks: (state: BookState, { payload }: PayloadAction<IBook[]>) => {
+      state.booksData = [...payload];
     },
   },
 });
 
-export const { getAllBooks } = slice.actions;
+export const fetchBooks = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const data = await getBooks();
+      dispatch(addAllBooks(data));
+    } catch (error) {}
+  };
+};
+
+export const { addAllBooks } = slice.actions;
 export default slice.reducer;

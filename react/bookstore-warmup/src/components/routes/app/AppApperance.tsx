@@ -1,62 +1,33 @@
 import React, { useState } from "react";
-import { Layout, Menu } from "antd";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  BookOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { Breadcrumb, Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import "./AppApperance.scss";
-
-const { Header, Sider, Content } = Layout;
+import AppHeader from "../../specificComponents/AppHeader/AppHeader";
+import Navbar from "../../specificComponents/Navbar/Navbar";
+const { Content, Footer } = Layout;
 
 const AppAppearance: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout>
-      <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
-
-        <Menu
-          theme="light"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <BookOutlined />,
-              label: "Books",
-            },
-            {
-              key: "2",
-              icon: <SettingOutlined />,
-              label: "Settings",
-            },
-          ]}
-        />
-      </Sider>
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
-        </Header>
-        <Content
-          className="content-layout-background"
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
-          <Outlet />
-        </Content>
+    <Layout className="site-page-header">
+      <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
+      <Layout>
+        <Navbar collapsed={collapsed} />
+        <Layout style={{ padding: "0 24px 24px", height: "95vh" }}>
+          <Breadcrumb style={{ margin: "16px 0" }}></Breadcrumb>
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+            }}
+          >
+            <Outlet />
+          </Content>
+          <Footer style={{ textAlign: "center" }}>RAMA IK</Footer>
+        </Layout>
       </Layout>
     </Layout>
   );

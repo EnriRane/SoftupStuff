@@ -8,6 +8,7 @@ import { login } from "../../services/userService";
 import { AppDispatch } from "../store/store";
 import { IUser } from "../../models/IUser";
 import { NavigateFunction } from "react-router-dom";
+import { fetchBooks } from "./bookSlice";
 
 const slice = createSlice({
   name: "user",
@@ -18,7 +19,6 @@ const slice = createSlice({
     addUser: (state, { payload }: PayloadAction<IUser>) => {
       state.userData = { ...payload };
       saveUserToStorage(payload);
-      console.log(getUser());
     },
   },
 });
@@ -38,6 +38,7 @@ export const loginUser = (
       };
       dispatch(addUser(userData));
       saveJwtToStorage(data.token);
+      dispatch(fetchBooks());
       navigate("/app/books");
     } catch (error) {}
   };

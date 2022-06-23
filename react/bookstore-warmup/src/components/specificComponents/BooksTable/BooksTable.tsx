@@ -1,25 +1,23 @@
-import { Space, Table, Tag, Input } from "antd";
+import { Space, Table, Tag, Button, Input } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import "./BooksTable.scss";
-
+import { Link } from "react-router-dom";
+import { IBook } from "../../../models/IBook";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store/store";
 const { Search } = Input;
 
 const BooksTable: React.FC = () => {
-  interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
-  }
+  const books = useSelector((state: RootState) => state.books.booksData);
+  console.log(books);
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<IBook> = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Title",
+      dataIndex: "title",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <Link to="">{text}</Link>,
     },
     {
       title: "Author",
@@ -35,62 +33,54 @@ const BooksTable: React.FC = () => {
       title: "Genre",
       key: "genre",
       dataIndex: "genre",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
     },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a>
+          <Link to={""}>
             <MoreOutlined />
-          </a>
-          <a>
+          </Link>
+          <Link to={""}>
             <EditOutlined />
-          </a>
-          <a>
+          </Link>
+          <Link to={""}>
             <DeleteOutlined />
-          </a>
+          </Link>
         </Space>
       ),
     },
   ];
 
-  const data: DataType[] = [
+  const data: IBook[] = [
     {
-      key: "1",
-      name: "Te Mjeret",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["roman", "drame"],
+      title: "Te Mjeret",
+      author: "Sa",
+      publication: "dsadas",
+      genre: "roman",
     },
   ];
 
   return (
-    <div className="booksTableWrapper">
-      <Search
-        className="search"
-        placeholder="Search book by name"
-        enterButton="Search"
-        size="large"
-        loading
+    <div className="books-table-container">
+      <div className="button-and-search-container">
+        <Search
+          className="books-search-bar"
+          placeholder="Search with name"
+          enterButton="Search"
+          size="large"
+          // loading
+        />
+        <Button className="add-book-button" type="primary">
+          Add Book
+        </Button>
+      </div>
+      <Table
+        className="table-books-style"
+        columns={columns}
+        dataSource={books}
       />
-
-      <Table className="table" columns={columns} dataSource={data} />
     </div>
   );
 };

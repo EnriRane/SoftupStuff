@@ -1,59 +1,41 @@
 import "./Navbar.scss";
-import { Menu } from "antd";
-import {
-  BookOutlined,
-  SettingOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from "@ant-design/icons";
-import { Button } from "antd";
-import { useState } from "react";
-import type { MenuProps } from "antd";
+import { Layout, Menu } from "antd";
+import { BookOutlined, SettingOutlined } from "@ant-design/icons";
+import React from "react";
 
-type MenuItem = Required<MenuProps>["items"][number];
+const { Sider } = Layout;
 
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: "group"
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
+type NavbarType = {
+  collapsed: boolean;
+};
 
-const Navbar = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const items: MenuItem[] = [
-    getItem("Books", "1", <BookOutlined />),
-    getItem("Settings", "2", <SettingOutlined />),
-  ];
+const Navbar: React.FC<NavbarType> = ({ collapsed }) => {
   return (
-    <div className="menu-container">
+    <Sider
+      theme="light"
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+      className="site-layout-background"
+    >
       <Menu
-        defaultSelectedKeys={["1"]}
-        mode="inline"
         theme="light"
-        inlineCollapsed={collapsed}
-        items={items}
+        mode="inline"
+        defaultSelectedKeys={["1"]}
+        items={[
+          {
+            key: "1",
+            icon: <BookOutlined />,
+            label: "Books",
+          },
+          {
+            key: "2",
+            icon: <SettingOutlined />,
+            label: "Settings",
+          },
+        ]}
       />
-      <div>Hello there</div>
-
-      <Button style={{ color: "black" }} type="text" onClick={toggleCollapsed}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
-    </div>
+    </Sider>
   );
 };
 export default Navbar;

@@ -1,10 +1,10 @@
 import { ToastContainer } from "react-toastify";
-import "./Assets/Css/App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import UserDetails from "./Pages/UserDetails";
 import Users from "./Pages/Users";
 import Navbar from "./Layout/Navbar";
+import "./Assets/Css/App.css";
 function App() {
   return (
     <div className="App">
