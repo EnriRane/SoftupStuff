@@ -9,7 +9,6 @@ import {
 import { Button } from "antd";
 import { useState } from "react";
 import type { MenuProps } from "antd";
-import { Link, Outlet } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -37,42 +36,23 @@ const Navbar = () => {
   };
 
   const items: MenuItem[] = [
-    getItem(
-      "Books",
-      "1",
-      <Link to="books">
-        <BookOutlined />
-      </Link>
-    ),
-    getItem(
-      "Settings",
-      "2",
-      <Link to="settings">
-        <SettingOutlined />
-      </Link>
-    ),
+    getItem("Books", "1", <BookOutlined />),
+    getItem("Settings", "2", <SettingOutlined />),
   ];
-
   return (
-    <div>
-      <div className="menu-container">
-        <Menu
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          theme="light"
-          inlineCollapsed={collapsed}
-          items={items}
-        />
+    <div className="menu-container">
+      <Menu
+        defaultSelectedKeys={["1"]}
+        mode="inline"
+        theme="light"
+        inlineCollapsed={collapsed}
+        items={items}
+      />
+      <div>Hello there</div>
 
-        <Button
-          style={{ color: "black" }}
-          type="text"
-          onClick={toggleCollapsed}
-        >
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </Button>
-      </div>
-      <Outlet />
+      <Button style={{ color: "black" }} type="text" onClick={toggleCollapsed}>
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </Button>
     </div>
   );
 };

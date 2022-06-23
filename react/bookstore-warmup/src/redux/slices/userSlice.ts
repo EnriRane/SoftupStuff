@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { saveJwtToStorage } from "../../services/authService";
+import {
+  getUser,
+  saveJwtToStorage,
+  saveUserToStorage,
+} from "../../services/authService";
 import { login } from "../../services/userService";
 import { AppDispatch } from "../store/store";
 import { IUser } from "../../models/IUser";
@@ -8,11 +12,13 @@ import { NavigateFunction } from "react-router-dom";
 const slice = createSlice({
   name: "user",
   initialState: {
-    userData: {},
+    userData: getUser(),
   },
   reducers: {
     addUser: (state, { payload }: PayloadAction<IUser>) => {
       state.userData = { ...payload };
+      saveUserToStorage(payload);
+      console.log(getUser());
     },
   },
 });

@@ -1,10 +1,21 @@
+import { IUser } from "../models/IUser";
+
 export const saveJwtToStorage = (jwt: string) => {
   localStorage.setItem("token", jwt);
-};
-export const removeJwtFromStorage = () => {
-  localStorage.removeItem("token");
 };
 
 export const getToken = () => {
   return localStorage.getItem("token");
+};
+
+export const saveUserToStorage = (user: IUser) => {
+  localStorage.setItem("user", JSON.stringify(user));
+};
+
+export const getUser = () => {
+  return JSON.parse(localStorage.getItem("user") || "{}");
+};
+export const removeFromStorage = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 };

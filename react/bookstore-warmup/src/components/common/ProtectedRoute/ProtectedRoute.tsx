@@ -2,12 +2,12 @@ import { ReactElement } from "react";
 
 import { Navigate } from "react-router-dom";
 
-import { getToken } from "../../../services/authService";
+import { getUser } from "../../../services/authService";
 type ProtectedRouteProps = {
   children: ReactElement;
 };
 const ProtectedRoute = (props: ProtectedRouteProps): ReactElement => {
-  if (!getToken()) {
+  if (Object.keys(getUser()).length < 1) {
     return <Navigate to="/auth/login" replace />;
   }
 
