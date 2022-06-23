@@ -6,11 +6,11 @@ import Login from "./components/routes/auth/Login/Login";
 import Auth from "./components/routes/auth/Auth";
 import { I18nextProvider } from "react-i18next";
 import i18next from "./services/translationService";
-import "../src/assets/styles/App.scss";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import NotFound from "./components/common/NotFound/NotFound";
 import AppAppearance from "./components/routes/app/AppApperance";
+import "../src/assets/styles/App.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   return (

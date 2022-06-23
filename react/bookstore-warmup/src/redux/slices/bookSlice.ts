@@ -1,12 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IBook } from "../../models/IBook";
 type BookState = {
-  books: {
-    name: string;
-  }[];
+  books: IBook[];
 };
-// type Payload={
-
-// }
 
 const slice = createSlice({
   name: "books",
@@ -14,7 +10,7 @@ const slice = createSlice({
     books: [],
   },
   reducers: {
-    getAllBooks: (state: BookState, { payload }: any) => {
+    getAllBooks: (state: BookState, { payload }: PayloadAction<IBook[]>) => {
       state.books = [...payload];
     },
   },

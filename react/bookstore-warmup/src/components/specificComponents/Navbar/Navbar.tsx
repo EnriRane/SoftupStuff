@@ -9,7 +9,7 @@ import {
 import { Button } from "antd";
 import { useState } from "react";
 import type { MenuProps } from "antd";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -37,8 +37,20 @@ const Navbar = () => {
   };
 
   const items: MenuItem[] = [
-    getItem("Books", "1", <BookOutlined />),
-    getItem("Settings", "2", <SettingOutlined />),
+    getItem(
+      "Books",
+      "1",
+      <Link to="books">
+        <BookOutlined />
+      </Link>
+    ),
+    getItem(
+      "Settings",
+      "2",
+      <Link to="settings">
+        <SettingOutlined />
+      </Link>
+    ),
   ];
 
   return (
