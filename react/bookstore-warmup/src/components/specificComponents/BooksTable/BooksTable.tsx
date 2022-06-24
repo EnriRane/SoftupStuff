@@ -1,4 +1,4 @@
-import { Space, Table, Button, Input } from "antd";
+import { Space, Table, Button, Input, Tag } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import BookModal from "../BookModal/BookModal";
@@ -42,20 +42,32 @@ const BooksTable: React.FC = () => {
       render: (text: string) => <Link to="">{text}</Link>,
     },
     {
-      title: "Author",
-      dataIndex: "author",
-      key: "author",
-    },
-    {
       title: "Publication",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      render: (date: string) => <div>{new Date(date).toLocaleString()}</div>,
+      dataIndex: "publications",
+      key: "publications",
+      render: (publication: [{ date: string }]) => (
+        <div>{new Date(publication[0].date).toLocaleDateString()}</div>
+      ),
     },
     {
       title: "Genre",
       key: "genre",
       dataIndex: "genre",
+      render: (_, { genre }) => (
+        <>
+          {genre.split("_").map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "loser") {
+              color = "volcano";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
     },
     {
       title: "Action",

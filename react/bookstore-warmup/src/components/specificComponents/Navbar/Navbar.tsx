@@ -1,7 +1,9 @@
 import "./Navbar.scss";
 import { Layout, Menu } from "antd";
+import type { MenuProps } from "antd";
 import { BookOutlined, SettingOutlined } from "@ant-design/icons";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -10,6 +12,15 @@ type NavbarType = {
 };
 
 const Navbar: React.FC<NavbarType> = ({ collapsed }) => {
+  const navigate = useNavigate();
+  const onClick: MenuProps["onClick"] = (e) => {
+    if (e.key === "books") {
+      navigate("books");
+    } else if (e.key === "settings") {
+      navigate("settings");
+    }
+  };
+
   return (
     <Sider
       theme="light"
@@ -22,14 +33,15 @@ const Navbar: React.FC<NavbarType> = ({ collapsed }) => {
         theme="light"
         mode="inline"
         defaultSelectedKeys={["1"]}
+        onClick={onClick}
         items={[
           {
-            key: "1",
+            key: "books",
             icon: <BookOutlined />,
             label: "Books",
           },
           {
-            key: "2",
+            key: "settings",
             icon: <SettingOutlined />,
             label: "Settings",
           },

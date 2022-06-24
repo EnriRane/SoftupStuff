@@ -26,7 +26,9 @@ const AppAppearance: React.FC = () => {
           >
             <Outlet />
           </Content>
-          <Footer style={{ textAlign: "center" }}>RAMA IK</Footer>
+          <Footer style={{ textAlign: "center" }}>
+            Created in 2022 by Enri Rane
+          </Footer>
         </Layout>
       </Layout>
     </Layout>

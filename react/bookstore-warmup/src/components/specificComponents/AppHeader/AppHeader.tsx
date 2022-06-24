@@ -15,11 +15,12 @@ const AppHeader: React.FC<HeaderType> = ({ collapsed, setCollapsed }) => {
   return (
     <PageHeader
       title="Softup Bookstore"
+      subTitle={[
+        <div onClick={() => setCollapsed(!collapsed)} className="trigger">
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </div>,
+      ]}
       extra={[
-        React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-          className: "trigger",
-          onClick: () => setCollapsed(!collapsed),
-        }),
         <Button
           onClick={() => {
             navigate("/auth/logout");

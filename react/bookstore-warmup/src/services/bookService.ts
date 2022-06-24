@@ -13,7 +13,11 @@ const getBooks = async () => {
 };
 
 const postBook = async (book: IBook) => {
-  const { data } = await http.post(`${config.apiUrl}/books`, book);
+  const { data } = await http.post(`${config.apiUrl}/books`, book, {
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
+  });
   return data;
 };
 

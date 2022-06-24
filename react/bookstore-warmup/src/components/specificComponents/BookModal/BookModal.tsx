@@ -16,12 +16,9 @@ const BookModal: React.FC<ModalType> = ({ showModal, setshowModal }) => {
         onCancel={() => {
           setshowModal(false);
         }}
-        okText="Submit"
-        onOk={() => {
-          console.log("hello there");
-        }}
+        footer={null}
       >
-        <BookForm />
+        <BookForm setShowModal={setshowModal} />
       </Modal>
     </div>
   );

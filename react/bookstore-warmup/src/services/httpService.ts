@@ -12,10 +12,10 @@ axios.interceptors.response.use(
       error.response.status < 500;
     if (!expectedError) {
       toast.error("An unexpected error occurred", { theme: "dark" });
-      console.log(error.response?.status);
+
       return Promise.reject(error);
     } else {
-      console.log(error.response?.status);
+      console.log(error.response);
       toast.error("You made a bad request", { theme: "dark" });
       return Promise.reject(error);
     }

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBook } from "../../models/IBook";
-import { getBooks } from "../../services/bookService";
+import { getBooks, postBook } from "../../services/bookService";
 import { AppDispatch } from "../store/store";
 type BookState = {
   booksData: IBook[];
@@ -33,6 +33,15 @@ export const fetchBooks = () => {
     try {
       const data = await getBooks();
       dispatch(addAllBooks(data));
+    } catch (error) {}
+  };
+};
+
+export const createNewBook = (book: IBook) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const data = await postBook(book);
+      console.log(data);
     } catch (error) {}
   };
 };

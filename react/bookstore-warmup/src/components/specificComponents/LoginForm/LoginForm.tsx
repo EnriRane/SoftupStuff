@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import softupLogo from "../../../assets/images/softupLogo.png";
-import { Form, Input, SubmitButton } from "formik-antd";
+import { Form, Input } from "formik-antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -10,6 +10,7 @@ import "./LoginForm.scss";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -108,13 +109,13 @@ const LoginForm = () => {
               </Form.Item>
 
               <Form.Item name="fields-field-style">
-                <SubmitButton
+                <Button
                   type="primary"
                   htmlType="submit"
                   className="login-form-button"
                 >
                   {t("login.log")}
-                </SubmitButton>
+                </Button>
               </Form.Item>
             </Form>
           )}

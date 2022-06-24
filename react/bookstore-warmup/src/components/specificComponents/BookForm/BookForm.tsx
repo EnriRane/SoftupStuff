@@ -1,29 +1,38 @@
 import "./BookForm.scss";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Form, Input } from "formik-antd";
+import { Form, Input, Select, DatePicker, InputNumber } from "formik-antd";
 import { useTranslation } from "react-i18next";
-import { DatePicker, Select } from "antd";
-import type { DatePickerProps } from "antd";
+import { Button } from "antd";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store/store";
+import { createNewBook } from "../../../redux/slices/bookSlice";
 
 const layout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 18 },
 };
 
-const BookForm = () => {
-  const { t } = useTranslation();
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {};
+type BookFormType = {
+  setShowModal: (showModal: boolean) => void;
+};
 
+const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
   const BookFormSchema = Yup.object().shape({
-    name: Yup.string()
-      .max(50, `${t("bookForm.error.titleMax")}`)
+    title: Yup.string()
+      .max(5, `${t("bookForm.error.titleMax")}`)
       .required(`${t("bookForm.error.titleReq")}`),
     author: Yup.string()
       .max(20, `${t("bookForm.error.authorMax")}`)
       .required(`${t("bookForm.error.authorReq")}`),
-    publication: Yup.string().required(`${t("error.BOOK_PUBLICATION_ERROR")}`),
-    genre: Yup.string().required(`${t("error.BOOK_GENRE_ERROR")}`),
+    publication: Yup.string().required(`${t("bookForm.error.publication")}`),
+    genre: Yup.string().required(`${t("bookForm.error.genre")}`),
+    pages: Yup.number()
+      .required(`${t("bookForm.error.pages")}`)
+      .min(5, `${t("bookForm.error.pagesMin")}`),
   });
 
   return (
@@ -34,9 +43,29 @@ const BookForm = () => {
           author: "",
           publication: "",
           genre: "",
+          pages: 0,
         }}
         validationSchema={BookFormSchema}
-        onSubmit={(values) => {}}
+        onSubmit={(values) => {
+          const dateArray = new Date(values.publication)
+            .toLocaleDateString()
+            .split("/");
+          let newDate = "";
+          for (let i = 2; i >= 0; i--) {
+            newDate = newDate + "-" + dateArray[i];
+          }
+
+          newDate = newDate.slice(1);
+          const newBook = {
+            title: values.title,
+            author: values.author,
+            genre: values.genre,
+            pages: values.pages,
+            publications: [newDate],
+          };
+
+          dispatch(createNewBook(newBook));
+        }}
       >
         {({ errors, values }) => (
           <Form {...layout} name="add_book">
@@ -47,7 +76,7 @@ const BookForm = () => {
               rules={[{ required: true }]}
             >
               <Input
-                name={t("bookForm.title")}
+                name="title"
                 placeholder={t("bookForm.titlePlaceHolder")}
               />
             </Form.Item>
@@ -58,17 +87,17 @@ const BookForm = () => {
               rules={[{ required: true }]}
             >
               <Input
-                name={t("bookForm.author")}
+                name="author"
                 placeholder={t("bookForm.authorPlaceHolder")}
               />
             </Form.Item>
             <Form.Item
-              name={t("bookForm.genre")}
+              name="genre"
               label="Genre"
               className="fields-field-style"
               rules={[{ required: true }]}
             >
-              <Select placeholder={t("bookForm.genrePlaceHolder")}>
+              <Select name="genre" placeholder={t("bookForm.genrePlaceHolder")}>
                 <Select.Option value="fiction">Fiction</Select.Option>
                 <Select.Option value="mystery">Mystery</Select.Option>
                 <Select.Option value="thriller">Thriller</Select.Option>
@@ -83,8 +112,39 @@ const BookForm = () => {
               className="fields-field-style"
               rules={[{ required: true }]}
             >
-              <DatePicker onChange={onChange} />
+              <DatePicker name="publication" style={{ width: "100%" }} />
             </Form.Item>
+            <Form.Item
+              name="pages"
+              label="Pages"
+              className="fields-field-style"
+              rules={[{ required: true }]}
+            >
+              <InputNumber
+                name="pages"
+                min={1}
+                max={10}
+                style={{ width: "100% " }}
+              />
+            </Form.Item>
+
+            <div className="buttons">
+              <Form.Item name="cancel">
+                <Button
+                  onClick={() => {
+                    setShowModal(false);
+                  }}
+                  htmlType="button"
+                >
+                  Cancel
+                </Button>
+              </Form.Item>
+              <Form.Item name="sumbitButton">
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </div>
           </Form>
         )}
       </Formik>
