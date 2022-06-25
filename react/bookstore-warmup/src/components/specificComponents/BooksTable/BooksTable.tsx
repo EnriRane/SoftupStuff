@@ -1,4 +1,4 @@
-import { Space, Table, Button, Input, Tag } from "antd";
+import { Space, Table, Button, Input, Tag, Popconfirm } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import BookModal from "../BookModal/BookModal";
@@ -13,7 +13,9 @@ import {
   deleteBook,
   setEditableBook,
 } from "../../../redux/slices/bookSlice";
+import { Breadcrumb, Layout } from "antd";
 import "./BooksTable.scss";
+const { Content, Footer } = Layout;
 const { Search } = Input;
 interface IDeleteBook extends IBook {
   _id: string;
@@ -32,6 +34,10 @@ const BooksTable: React.FC = () => {
     dispatch(setEditableBook(book));
   };
 
+  const onConfirm = (record: IDeleteBook) => {
+    dispatch(deleteBook(record) as any);
+  };
+
   const onSearch = (searchQuery: string) =>
     dispatch(addSearchQuery(searchQuery));
 
@@ -42,7 +48,11 @@ const BooksTable: React.FC = () => {
     (state: RootState) => state.books.searchQuery
   );
   if (searchQuery) {
-    books = books.filter((book) => book.title === searchQuery);
+    books = books.filter(
+      (book) =>
+        book.title.toLowerCase() === searchQuery.toLowerCase() ||
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   }
 
   const columns: ColumnsType<IDeleteBook> = [
@@ -101,9 +111,14 @@ const BooksTable: React.FC = () => {
             </div>
           </Link>
           <Link to={""}>
-            <div onClick={() => dispatch(deleteBook(record) as any)}>
+            <Popconfirm
+              title="Are you sure to delete this book?"
+              onConfirm={() => onConfirm(record)}
+              okText="Yes"
+              cancelText="No"
+            >
               <DeleteOutlined />
-            </div>
+            </Popconfirm>
           </Link>
         </Space>
       ),
@@ -111,31 +126,46 @@ const BooksTable: React.FC = () => {
   ];
 
   return (
-    <div className="books-table-container">
-      <div className="button-and-search-container">
-        <Search
-          className="books-search-bar"
-          placeholder="Search with name"
-          enterButton="Search"
-          size="large"
-          onSearch={onSearch}
-          // loading
-        />
-        <Button
-          className="add-book-button"
-          type="primary"
-          onClick={() => setshowModal(true)}
-        >
-          Add Book
-        </Button>
-      </div>
-      <Table
-        className="table-books-style"
-        columns={columns}
-        dataSource={books}
-      />
-      <BookModal setshowModal={setshowModal} showModal={showModal} />
-    </div>
+    <Layout style={{ padding: "0 24px 24px", height: "95vh" }}>
+      <Breadcrumb style={{ margin: "16px 0" }} />
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 24,
+          margin: 0,
+          minHeight: 280,
+        }}
+      >
+        <div className="books-table-container">
+          <div className="button-and-search-container">
+            <Search
+              className="books-search-bar"
+              placeholder="Search by name"
+              enterButton="Search"
+              size="large"
+              onSearch={onSearch}
+              // loading
+            />
+            <Button
+              className="add-book-button"
+              type="primary"
+              onClick={() => setshowModal(true)}
+            >
+              Add Book
+            </Button>
+          </div>
+          <Table
+            className="table-books-style"
+            columns={columns}
+            dataSource={books}
+          />
+          <BookModal setshowModal={setshowModal} showModal={showModal} />
+        </div>
+      </Content>
+      <Footer style={{ textAlign: "center" }}>
+        Created in 2022 by Enri Rane
+      </Footer>
+    </Layout>
   );
 };
 

@@ -31,6 +31,7 @@ const Navbar: React.FC<NavbarType> = ({ collapsed }) => {
     >
       <Menu
         theme="light"
+        className="navbar"
         mode="inline"
         defaultSelectedKeys={["1"]}
         onClick={onClick}

@@ -17,7 +17,12 @@ const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
 const BookDetails: React.FC = () => {
   return (
     <>
-      <Layout style={{ padding: "24px 24px 24px", height: "100vh" }}>
+      <Layout
+        style={{
+          padding: "24px 24px 24px",
+          height: "100vh",
+        }}
+      >
         <Content
           className="site-layout-background"
           style={{
@@ -32,31 +37,32 @@ const BookDetails: React.FC = () => {
           >
             Book Details
           </h1>
-
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Title" content="Harry Potter" />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Publication" content="22-03-2022" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem
-                title="Author"
-                content="Joanne Kathlyn Rowling"
-              />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Genre" content="blonde" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Pages" content="200" />
-            </Col>
-          </Row>
+          <div style={{ textAlign: "left" }}>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem title="Title" content="Harry Potter" />
+              </Col>
+              <Col span={12}>
+                <DescriptionItem title="Publication" content="22-03-2022" />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Author"
+                  content="Joanne Kathlyn Rowling"
+                />
+              </Col>
+              <Col span={12}>
+                <DescriptionItem title="Genre" content="blonde" />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem title="Pages" content="200" />
+              </Col>
+            </Row>
+          </div>
           <Divider />
           <BookImages />
         </Content>
