@@ -12,6 +12,7 @@ import AppAppearance from "./components/routes/app/AppApperance";
 import BooksTable from "./components/specificComponents/BooksTable/BooksTable";
 import "../src/assets/styles/App.scss";
 import "react-toastify/dist/ReactToastify.css";
+import BookDetails from "./components/specificComponents/BookDetails/BookDetails";
 
 const App: React.FC = () => {
   return (
@@ -32,9 +33,8 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           >
-            <Route path="books" element={<BooksTable />}>
-              <Route path=":title" element={<p>id of book</p>}></Route>
-            </Route>
+            <Route path="books" element={<BooksTable />}></Route>
+            <Route path="books/:title" element={<BookDetails />}></Route>
             <Route path="settings" element={<p>settings</p>}></Route>
           </Route>
           <Route path="*" element={<NotFound />}></Route>

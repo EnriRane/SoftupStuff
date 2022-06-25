@@ -22,8 +22,20 @@ const postBook = async (book: IBook) => {
 };
 
 const updateBook = async (book: IBook) => {
-  const { data } = await http.put(`${config.apiUrl}/books`, book);
+  const { data } = await http.put(`${config.apiUrl}/books`, book, {
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
+  });
   return data;
 };
 
-export { getBooks, postBook, updateBook };
+const deleteABook = async (bookId: string) => {
+  const { data } = await http.delete(`${config.apiUrl}/books/${bookId}`, {
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
+  });
+  return data;
+};
+export { getBooks, postBook, updateBook, deleteABook };

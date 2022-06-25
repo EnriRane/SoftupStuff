@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBook } from "../../models/IBook";
-import { getBooks, postBook } from "../../services/bookService";
+import { deleteABook, getBooks, postBook } from "../../services/bookService";
 import { AppDispatch } from "../store/store";
 type BookState = {
   booksData: IBook[];
   searchQuery: string;
+  editableBook?: IBook | {};
 };
 
 const slice = createSlice({
@@ -12,18 +13,22 @@ const slice = createSlice({
   initialState: {
     booksData: [],
     searchQuery: "",
+    editableBook: {} as IBook,
   },
   reducers: {
     addAllBooks: (state: BookState, { payload }: PayloadAction<IBook[]>) => {
       state.booksData = [...payload];
     },
-    deleteBook: (state: BookState, { payload }: PayloadAction<string>) => {
+    deleteMyBook: (state: BookState, { payload }: PayloadAction<string>) => {
       state.booksData = state.booksData.filter(
         (book) => book.title !== payload
       );
     },
     addSearchQuery: (state: BookState, { payload }: PayloadAction<string>) => {
       state.searchQuery = payload;
+    },
+    setEditableBook: (state: BookState, { payload }: PayloadAction<IBook>) => {
+      state.editableBook = payload;
     },
   },
 });
@@ -40,11 +45,25 @@ export const fetchBooks = () => {
 export const createNewBook = (book: IBook) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const data = await postBook(book);
-      console.log(data);
+      await postBook(book);
     } catch (error) {}
   };
 };
 
-export const { addAllBooks, deleteBook, addSearchQuery } = slice.actions;
+interface IDeleteBook extends IBook {
+  _id: string;
+}
+
+export const deleteBook = (book: IDeleteBook) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(deleteMyBook(book.title));
+      await deleteABook(book._id);
+    } catch (error) {
+      dispatch(createNewBook(book));
+    }
+  };
+};
+export const { addAllBooks, addSearchQuery, deleteMyBook, setEditableBook } =
+  slice.actions;
 export default slice.reducer;

@@ -5,9 +5,10 @@ import { Form, Input, Select, DatePicker, InputNumber } from "formik-antd";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../redux/store/store";
 import { createNewBook } from "../../../redux/slices/bookSlice";
+import { RootState } from "../../../redux/store/store";
 
 const layout = {
   labelCol: { span: 5 },
@@ -21,6 +22,10 @@ type BookFormType = {
 const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
+  let editableBookData = useSelector(
+    (state: RootState) => state.books.editableBook
+  );
+
   const BookFormSchema = Yup.object().shape({
     title: Yup.string()
       .max(5, `${t("bookForm.error.titleMax")}`)
@@ -39,11 +44,11 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
     <div>
       <Formik
         initialValues={{
-          title: "",
-          author: "",
-          publication: "",
-          genre: "",
-          pages: 0,
+          title: "" || editableBookData.title,
+          author: "" || editableBookData.author,
+          publication: "" || (editableBookData.publication as string),
+          genre: "" || editableBookData.genre,
+          pages: 5 || editableBookData.pages,
         }}
         validationSchema={BookFormSchema}
         onSubmit={(values) => {

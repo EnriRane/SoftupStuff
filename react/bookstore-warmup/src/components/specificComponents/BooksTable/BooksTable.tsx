@@ -8,12 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store/store";
 import { useEffect, useState } from "react";
 import {
-  deleteBook,
   fetchBooks,
   addSearchQuery,
+  deleteBook,
+  setEditableBook,
 } from "../../../redux/slices/bookSlice";
 import "./BooksTable.scss";
 const { Search } = Input;
+interface IDeleteBook extends IBook {
+  _id: string;
+}
 
 const BooksTable: React.FC = () => {
   const [showModal, setshowModal] = useState(false);
@@ -23,10 +27,17 @@ const BooksTable: React.FC = () => {
     dispatch(fetchBooks() as any);
   }, [dispatch]);
 
+  const onEdit = (book: IBook) => {
+    setshowModal(true);
+    dispatch(setEditableBook(book));
+  };
+
   const onSearch = (searchQuery: string) =>
     dispatch(addSearchQuery(searchQuery));
 
-  let books: IBook[] = useSelector((state: RootState) => state.books.booksData);
+  let books: IDeleteBook[] = useSelector(
+    (state: RootState) => state.books.booksData
+  );
   const searchQuery = useSelector(
     (state: RootState) => state.books.searchQuery
   );
@@ -34,12 +45,12 @@ const BooksTable: React.FC = () => {
     books = books.filter((book) => book.title === searchQuery);
   }
 
-  const columns: ColumnsType<IBook> = [
+  const columns: ColumnsType<IDeleteBook> = [
     {
       title: "Title",
       dataIndex: "title",
       key: "name",
-      render: (text: string) => <Link to="">{text}</Link>,
+      render: (text: string) => <Link to="title">{text}</Link>,
     },
     {
       title: "Publication",
@@ -48,6 +59,12 @@ const BooksTable: React.FC = () => {
       render: (publication: [{ date: string }]) => (
         <div>{new Date(publication[0].date).toLocaleDateString()}</div>
       ),
+    },
+    {
+      title: "Pages",
+      dataIndex: "pages",
+      key: "pages",
+      render: (pages: string) => <div>{pages}</div>,
     },
     {
       title: "Genre",
@@ -69,6 +86,7 @@ const BooksTable: React.FC = () => {
         </>
       ),
     },
+
     {
       title: "Action",
       key: "action",
@@ -78,10 +96,12 @@ const BooksTable: React.FC = () => {
             <MoreOutlined />
           </Link>
           <Link to="">
-            <EditOutlined />
+            <div onClick={() => onEdit(record)}>
+              <EditOutlined />
+            </div>
           </Link>
           <Link to={""}>
-            <div onClick={() => dispatch(deleteBook(record.title))}>
+            <div onClick={() => dispatch(deleteBook(record) as any)}>
               <DeleteOutlined />
             </div>
           </Link>
