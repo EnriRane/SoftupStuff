@@ -27,6 +27,7 @@ const en = {
     language: {
       english: "English",
       albanian: "Albanian",
+      change: "Change the language",
     },
     bookForm: {
       title: "Title",
@@ -49,6 +50,27 @@ const en = {
         pagesMin: "Number of pages too small",
       },
     },
+    settings: "Settings",
+    details: {
+      bigTitle: "Book details",
+      title: "Title",
+      author: "Author",
+      publication: "Publication",
+      pages: "Number of pages",
+      genre: "Genre",
+      action: "Actions",
+    },
+    navbar: {
+      books: "Books",
+      settings: "Settings",
+    },
+    upload: "Upload",
+    bookTable: {
+      search: "Search",
+      searchPlaceholder: "Search by name",
+      add: "Add book",
+    },
+    chooseLanguage: "Choose language",
   },
 };
 

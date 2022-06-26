@@ -4,6 +4,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import softupLogo from "../../../assets/images/softupLogo.png";
 import "./AppHeader.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type HeaderType = {
   collapsed: boolean;
@@ -11,6 +12,7 @@ type HeaderType = {
 };
 const AppHeader: React.FC<HeaderType> = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <PageHeader
@@ -28,7 +30,7 @@ const AppHeader: React.FC<HeaderType> = ({ collapsed, setCollapsed }) => {
           key="1"
           type="primary"
         >
-          Logout
+          {t("logout")}
         </Button>,
       ]}
       avatar={{

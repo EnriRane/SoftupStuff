@@ -13,6 +13,7 @@ import BooksTable from "./components/specificComponents/BooksTable/BooksTable";
 import "../src/assets/styles/App.scss";
 import "react-toastify/dist/ReactToastify.css";
 import BookDetails from "./components/specificComponents/BookDetails/BookDetails";
+import Settings from "./components/routes/app/Settings/Settings";
 
 const App: React.FC = () => {
   return (
@@ -34,8 +35,8 @@ const App: React.FC = () => {
             }
           >
             <Route path="books" element={<BooksTable />}></Route>
-            <Route path="books/:title" element={<BookDetails />}></Route>
-            <Route path="settings" element={<p>settings</p>}></Route>
+            <Route path="books/:id" element={<BookDetails />}></Route>
+            <Route path="settings" element={<Settings />}></Route>
           </Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>

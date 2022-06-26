@@ -57,7 +57,7 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
 
   const BookFormSchema = Yup.object().shape({
     title: Yup.string()
-      .max(5, `${t("bookForm.error.titleMax")}`)
+      .max(50, `${t("bookForm.error.titleMax")}`)
       .required(`${t("bookForm.error.titleReq")}`),
     author: Yup.string()
       .max(20, `${t("bookForm.error.authorMax")}`)

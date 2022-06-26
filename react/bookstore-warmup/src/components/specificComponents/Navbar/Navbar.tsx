@@ -4,6 +4,7 @@ import type { MenuProps } from "antd";
 import { BookOutlined, SettingOutlined } from "@ant-design/icons";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const { Sider } = Layout;
 
@@ -13,6 +14,7 @@ type NavbarType = {
 
 const Navbar: React.FC<NavbarType> = ({ collapsed }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const onClick: MenuProps["onClick"] = (e) => {
     if (e.key === "books") {
       navigate("books");
@@ -39,12 +41,12 @@ const Navbar: React.FC<NavbarType> = ({ collapsed }) => {
           {
             key: "books",
             icon: <BookOutlined />,
-            label: "Books",
+            label: `${t("navbar.books")}`,
           },
           {
             key: "settings",
             icon: <SettingOutlined />,
-            label: "Settings",
+            label: `${t("navbar.settings")}`,
           },
         ]}
       />

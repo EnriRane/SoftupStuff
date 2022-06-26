@@ -28,6 +28,7 @@ const al = {
     language: {
       english: "Anglisht",
       albanian: "Shqip",
+      change: "Ndrysho gjuhen",
     },
     bookForm: {
       title: "Titulli",
@@ -50,6 +51,27 @@ const al = {
         pagesMin: "Numri i faqeve eshte shume i vogel",
       },
     },
+    settings: "Modifikime",
+    details: {
+      bigTitle: "Detaje mbi librin",
+      title: "Titulli",
+      author: "Autori",
+      publication: "Publikimi",
+      pages: "Numri i faqeve",
+      genre: "Zhaneri",
+      action: "Veprime",
+    },
+    navbar: {
+      books: "Librat",
+      settings: "Modifikime",
+    },
+    upload: "Ngarko",
+    bookTable: {
+      search: "Kerko",
+      searchPlaceholder: "Kerko sipas emrit",
+      add: "Shto liber",
+    },
+    chooseLanguage: "Ndrysho gjuhen",
   },
 };
 

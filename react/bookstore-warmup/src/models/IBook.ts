@@ -10,6 +10,10 @@ export interface IBook {
     | string[]
     | string;
   genre: string;
-  photos?: {};
   pages: number;
+  images?: {
+    _id: string;
+    name: string;
+    url: string;
+  }[];
 }

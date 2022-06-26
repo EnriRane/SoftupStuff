@@ -17,6 +17,7 @@ import {
 import { Breadcrumb, Layout } from "antd";
 import "./BooksTable.scss";
 import { getAllAuthors } from "../../../redux/slices/authorSlice";
+import { useTranslation } from "react-i18next";
 const { Content, Footer } = Layout;
 const { Search } = Input;
 interface IDeleteBook extends IBook {
@@ -25,6 +26,7 @@ interface IDeleteBook extends IBook {
 
 const BooksTable: React.FC = () => {
   const [showModal, setshowModal] = useState(false);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -63,13 +65,13 @@ const BooksTable: React.FC = () => {
 
   const columns: ColumnsType<IDeleteBook> = [
     {
-      title: "Title",
+      title: `${t("details.title")}`,
       dataIndex: "title",
       key: "name",
-      render: (text: string) => <Link to="title">{text}</Link>,
+      render: (text: string) => <div className="title">{text}</div>,
     },
     {
-      title: "Publication",
+      title: `${t("details.publication")}`,
       dataIndex: "publications",
       key: "publications",
       render: (publications: [{ date: string }]) => (
@@ -77,13 +79,13 @@ const BooksTable: React.FC = () => {
       ),
     },
     {
-      title: "Pages",
+      title: `${t("details.pages")}`,
       dataIndex: "pages",
       key: "pages",
       render: (pages: string) => <div>{pages}</div>,
     },
     {
-      title: "Genre",
+      title: `${t("details.genre")}`,
       key: "genre",
       dataIndex: "genre",
       render: (_, { genre }) => (
@@ -104,11 +106,11 @@ const BooksTable: React.FC = () => {
     },
 
     {
-      title: "Action",
+      title: `${t("details.action")}`,
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Link to={`:${record.title}`}>
+          <Link to={`${record._id}`}>
             <MoreOutlined />
           </Link>
           <Link to="">
@@ -146,8 +148,8 @@ const BooksTable: React.FC = () => {
           <div className="button-and-search-container">
             <Search
               className="books-search-bar"
-              placeholder="Search by name"
-              enterButton="Search"
+              placeholder={`${t("bookTable.searchPlaceholder")}`}
+              enterButton={`${t("bookTable.search")}`}
               size="large"
               onSearch={onSearch}
               // loading
@@ -157,7 +159,7 @@ const BooksTable: React.FC = () => {
               type="primary"
               onClick={onHandleClick}
             >
-              Add Book
+              {`${t("bookTable.add")}`}
             </Button>
           </div>
           <Table
