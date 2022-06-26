@@ -38,6 +38,7 @@ const al = {
       genrePlaceHolder: "Zhaneri",
       publication: "Publikimi",
       publicationPlaceHolder: "Zgjidhni daten",
+      page: "Numri i faqeve",
       error: {
         titleMax: "Titulli eshte shume i gjate",
         authorMax: "Emri i autorit eshte shume i gjate",

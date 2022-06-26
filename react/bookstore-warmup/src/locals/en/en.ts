@@ -37,6 +37,7 @@ const en = {
       genrePlaceHolder: "Genre",
       publication: "Publication",
       publicationPlaceHolder: "Select date",
+      page: "Number of pages",
       error: {
         titleMax: "Title is too long",
         authorMax: "Author name is too long",

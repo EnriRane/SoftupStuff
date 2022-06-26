@@ -17,6 +17,7 @@ axios.interceptors.response.use(
     } else {
       console.log(error.response);
       toast.error("You made a bad request", { theme: "dark" });
+
       return Promise.reject(error);
     }
   }
@@ -26,6 +27,7 @@ const http = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
+  patch: axios.patch,
   delete: axios.delete,
 };
 

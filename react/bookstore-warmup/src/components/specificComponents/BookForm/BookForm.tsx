@@ -7,8 +7,14 @@ import { Button } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../redux/store/store";
-import { createNewBook } from "../../../redux/slices/bookSlice";
+import {
+  createNewBook,
+  deleteEditableBook,
+  updateTheBook,
+} from "../../../redux/slices/bookSlice";
 import { RootState } from "../../../redux/store/store";
+import { IAuthor } from "../../../models/IAuthor";
+import { IBook } from "../../../models/IBook";
 
 const layout = {
   labelCol: { span: 5 },
@@ -22,9 +28,32 @@ type BookFormType = {
 const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  let editableBookData = useSelector(
+  let editableBookData: IBook = useSelector(
     (state: RootState) => state.books.editableBook
   );
+
+  let authors: IAuthor[] = useSelector(
+    (state: RootState) => state.authors.authorsData
+  );
+
+  let genres = [
+    "Fiction",
+    "Mystery",
+    "Thriller",
+    "Historical",
+    "Romance",
+    "Fantasy",
+  ];
+
+  const authorInitalName = () => {
+    if (Object.keys(editableBookData).length < 1) return " ";
+    const author = authors.find(
+      (author) => author._id === editableBookData.author
+    );
+    if (!author) return " ";
+
+    return author.firstName + " " + author.lastName;
+  };
 
   const BookFormSchema = Yup.object().shape({
     title: Yup.string()
@@ -45,10 +74,10 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
       <Formik
         initialValues={{
           title: "" || editableBookData.title,
-          author: "" || editableBookData.author,
-          publication: "" || (editableBookData.publication as string),
+          author: authorInitalName(),
+          publication: "",
           genre: "" || editableBookData.genre,
-          pages: 5 || editableBookData.pages,
+          pages: editableBookData.pages,
         }}
         validationSchema={BookFormSchema}
         onSubmit={(values) => {
@@ -59,17 +88,30 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
           for (let i = 2; i >= 0; i--) {
             newDate = newDate + "-" + dateArray[i];
           }
+          const bookAuthor = authors.find(
+            (author) => author.firstName + author.lastName === values.author
+          );
+          let authorId = bookAuthor?._id;
 
           newDate = newDate.slice(1);
-          const newBook = {
+          let newBook: IBook = {
             title: values.title,
-            author: values.author,
+            author: authorId as string,
             genre: values.genre,
             pages: values.pages,
             publications: [newDate],
           };
 
-          dispatch(createNewBook(newBook));
+          try {
+            if (Object.keys(editableBookData).length < 1) {
+              dispatch(createNewBook(newBook));
+            } else {
+              newBook._id = editableBookData._id;
+              dispatch(updateTheBook(newBook));
+            }
+
+            setShowModal(false);
+          } catch (error) {}
         }}
       >
         {({ errors, values }) => (
@@ -91,10 +133,19 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
               className="fields-field-style"
               rules={[{ required: true }]}
             >
-              <Input
+              <Select
                 name="author"
                 placeholder={t("bookForm.authorPlaceHolder")}
-              />
+              >
+                {authors.map((author) => (
+                  <Select.Option
+                    key={author._id}
+                    value={author.firstName + author.lastName}
+                  >
+                    {author.firstName + " " + author.lastName}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
             <Form.Item
               name="genre"
@@ -103,12 +154,11 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
               rules={[{ required: true }]}
             >
               <Select name="genre" placeholder={t("bookForm.genrePlaceHolder")}>
-                <Select.Option value="fiction">Fiction</Select.Option>
-                <Select.Option value="mystery">Mystery</Select.Option>
-                <Select.Option value="thriller">Thriller</Select.Option>
-                <Select.Option value="historical">Historical</Select.Option>
-                <Select.Option value="romance">Romance</Select.Option>
-                <Select.Option value="fantasy">Fantasy</Select.Option>
+                {genres.map((genre) => (
+                  <Select.Option key={genre} value={genre}>
+                    {genre}
+                  </Select.Option>
+                ))}
               </Select>
             </Form.Item>
             <Form.Item
@@ -128,8 +178,8 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
               <InputNumber
                 name="pages"
                 min={1}
-                max={10}
                 style={{ width: "100% " }}
+                placeholder={t("bookForm.page")}
               />
             </Form.Item>
 
@@ -137,6 +187,7 @@ const BookForm: React.FC<BookFormType> = ({ setShowModal }) => {
               <Form.Item name="cancel">
                 <Button
                   onClick={() => {
+                    dispatch(deleteEditableBook());
                     setShowModal(false);
                   }}
                   htmlType="button"

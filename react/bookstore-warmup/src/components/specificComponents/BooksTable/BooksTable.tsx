@@ -12,9 +12,11 @@ import {
   addSearchQuery,
   deleteBook,
   setEditableBook,
+  deleteEditableBook,
 } from "../../../redux/slices/bookSlice";
 import { Breadcrumb, Layout } from "antd";
 import "./BooksTable.scss";
+import { getAllAuthors } from "../../../redux/slices/authorSlice";
 const { Content, Footer } = Layout;
 const { Search } = Input;
 interface IDeleteBook extends IBook {
@@ -27,13 +29,17 @@ const BooksTable: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchBooks() as any);
+    dispatch(getAllAuthors() as any);
   }, [dispatch]);
 
   const onEdit = (book: IBook) => {
     setshowModal(true);
     dispatch(setEditableBook(book));
   };
-
+  const onHandleClick = () => {
+    setshowModal(true);
+    dispatch(deleteEditableBook());
+  };
   const onConfirm = (record: IDeleteBook) => {
     dispatch(deleteBook(record) as any);
   };
@@ -66,8 +72,8 @@ const BooksTable: React.FC = () => {
       title: "Publication",
       dataIndex: "publications",
       key: "publications",
-      render: (publication: [{ date: string }]) => (
-        <div>{new Date(publication[0].date).toLocaleDateString()}</div>
+      render: (publications: [{ date: string }]) => (
+        <div>{new Date(publications[0].date).toLocaleDateString()}</div>
       ),
     },
     {
@@ -149,7 +155,7 @@ const BooksTable: React.FC = () => {
             <Button
               className="add-book-button"
               type="primary"
-              onClick={() => setshowModal(true)}
+              onClick={onHandleClick}
             >
               Add Book
             </Button>

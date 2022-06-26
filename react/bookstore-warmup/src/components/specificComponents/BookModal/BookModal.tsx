@@ -11,6 +11,7 @@ const BookModal: React.FC<ModalType> = ({ showModal, setshowModal }) => {
   return (
     <div className="modal_container">
       <Modal
+        destroyOnClose={true}
         title="Add new book"
         visible={showModal}
         onCancel={() => {
