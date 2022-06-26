@@ -5,22 +5,26 @@ import type { UploadFile } from "antd/es/upload/interface";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { IBook } from "../../../models/IBook";
+import { postAnImage } from "../../../redux/slices/bookSlice";
+import { AppDispatch } from "../../../redux/store/store";
 import { convertToBase64 } from "../../../utils/convertFileToBase64";
 
 type BookImageType = {
-  images: UploadFile<any>[] | (() => UploadFile<any>[]);
+  book: IBook;
 };
 
-const BookImages: React.FC<BookImageType> = ({ images }) => {
+const BookImages: React.FC<BookImageType> = ({ book }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState<UploadFile[]>(images);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handleCancel = () => setPreviewVisible(false);
-
-  console.log(images);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -34,9 +38,11 @@ const BookImages: React.FC<BookImageType> = ({ images }) => {
     );
   };
 
-  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
+  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-
+    console.log(newFileList);
+    dispatch(postAnImage(book, newFileList[0].thumbUrl));
+  };
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -44,7 +50,7 @@ const BookImages: React.FC<BookImageType> = ({ images }) => {
     </div>
   );
   return (
-    <>
+    <div>
       <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
@@ -62,7 +68,7 @@ const BookImages: React.FC<BookImageType> = ({ images }) => {
       >
         <img alt="example" style={{ width: "100%" }} src={previewImage} />
       </Modal>
-    </>
+    </div>
   );
 };
 

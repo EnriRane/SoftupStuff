@@ -7,6 +7,7 @@ import {
   postBook,
   updateBook,
 } from "../../services/bookService";
+import { postImage } from "../../services/imageService";
 import { AppDispatch } from "../store/store";
 type BookState = {
   booksData: IBook[];
@@ -97,6 +98,14 @@ export const updateTheBook = (book: IBook) => {
       await updateBook(book);
       dispatch(updateMyBook(book));
       toast.success("Successfully updated book!");
+    } catch (error) {}
+  };
+};
+
+export const postAnImage = (book: IBook, image: any) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      await postImage(book, image);
     } catch (error) {}
   };
 };

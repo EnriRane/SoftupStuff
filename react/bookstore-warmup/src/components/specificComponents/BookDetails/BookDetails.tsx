@@ -1,12 +1,14 @@
 import { Col, Divider, Row, Layout } from "antd";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IAuthor } from "../../../models/IAuthor";
 import { IBook } from "../../../models/IBook";
-import { RootState } from "../../../redux/store/store";
+import { getAllAuthors } from "../../../redux/slices/authorSlice";
+import { fetchBooks } from "../../../redux/slices/bookSlice";
+import { AppDispatch, RootState } from "../../../redux/store/store";
 import BookImages from "../BookImages/BookImages";
-import type { UploadFile } from "antd/es/upload/interface";
 import "./BookDetails.scss";
 interface DescriptionItemProps {
   title: string;
@@ -24,6 +26,12 @@ const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
 const BookDetails: React.FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchBooks() as any);
+    dispatch(getAllAuthors() as any);
+  });
 
   const books: IBook[] = useSelector(
     (state: RootState) => state.books.booksData
@@ -34,8 +42,18 @@ const BookDetails: React.FC = () => {
     (state: RootState) => state.authors.authorsData
   );
 
-  console.log(book, id);
   const author = authors.find((author) => author._id === book?.author);
+
+  const getPublicationDate = () => {
+    let publication = book?.publications as unknown as [
+      {
+        date: string | Date;
+        _id?: string | undefined;
+      }
+    ];
+
+    return new Date(publication[0].date.toString()).toDateString();
+  };
 
   return (
     <>
@@ -59,13 +77,17 @@ const BookDetails: React.FC = () => {
               <Col span={12}>
                 <DescriptionItem
                   title={t("details.title")}
-                  content={book?.title}
+                  content={book?.title || "No title provided"}
                 />
               </Col>
               <Col span={12}>
                 <DescriptionItem
                   title={t("details.publication")}
-                  content={"adsdasdsa"}
+                  content={
+                    getPublicationDate() === undefined
+                      ? "No date provided"
+                      : getPublicationDate()
+                  }
                 />
               </Col>
             </Row>
@@ -73,13 +95,16 @@ const BookDetails: React.FC = () => {
               <Col span={12}>
                 <DescriptionItem
                   title="Author"
-                  content={author?.firstName + " " + author?.lastName}
+                  content={
+                    author?.firstName + " " + author?.lastName ||
+                    "No author provided"
+                  }
                 />
               </Col>
               <Col span={12}>
                 <DescriptionItem
                   title={t("details.genre")}
-                  content={book?.genre}
+                  content={book?.genre || "No genre provided"}
                 />
               </Col>
             </Row>
@@ -87,19 +112,13 @@ const BookDetails: React.FC = () => {
               <Col span={12}>
                 <DescriptionItem
                   title={t("details.pages")}
-                  content={book?.pages}
+                  content={book?.pages || "No pages provided"}
                 />
               </Col>
             </Row>
           </div>
           <Divider />
-          <BookImages
-            images={
-              book?.images as unknown as
-                | UploadFile<any>[]
-                | (() => UploadFile<any>[])
-            }
-          />
+          <BookImages book={book as IBook} />
         </Content>
       </Layout>
     </>
