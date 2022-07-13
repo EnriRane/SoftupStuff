@@ -1,9 +1,9 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, within, screen } from "@testing-library/react";
 import Login from "../components/routes/auth/Login/Login";
 
-test("renders login component", () => {
+test("renders Translator in Login component", () => {
   render(<Login />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const translator = screen.getByTestId("translator");
+  const translatorInLogin = within(translator).getAllByTestId("translator");
+  expect(translatorInLogin.length).toBe(1);
 });

@@ -5,8 +5,8 @@ import "./Login.scss";
 
 const Login: React.FC = () => {
   return (
-    <div>
-      <Translator />
+    <div data-testid="login">
+      <Translator data-testid="translator" />
       <LoginForm />
     </div>
   );

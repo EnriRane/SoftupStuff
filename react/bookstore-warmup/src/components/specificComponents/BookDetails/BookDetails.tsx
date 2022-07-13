@@ -28,10 +28,10 @@ const BookDetails: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    dispatch(fetchBooks() as any);
-    dispatch(getAllAuthors() as any);
-  });
+  // useEffect(() => {
+  //   dispatch(fetchBooks() as any);
+  //   dispatch(getAllAuthors() as any);
+  // });
 
   const books: IBook[] = useSelector(
     (state: RootState) => state.books.booksData

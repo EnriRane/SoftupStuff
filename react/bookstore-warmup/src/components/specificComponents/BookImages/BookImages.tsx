@@ -40,8 +40,8 @@ const BookImages: React.FC<BookImageType> = ({ book }) => {
 
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    console.log(newFileList);
-    dispatch(postAnImage(book, newFileList[0].thumbUrl));
+    // console.log(newFileList);
+    // dispatch(postAnImage(book, newFileList[0].thumbUrl));
   };
   const uploadButton = (
     <div>
